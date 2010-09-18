@@ -13,6 +13,7 @@ from zope.app.component.hooks import getSite
 
 from plone.app.querystring.querybuilder import QueryBuilder
 
+
 class QueryField(ObjectField):
     """QueryField for storing query"""
     implements(IQueryField)
@@ -28,7 +29,8 @@ class QueryField(ObjectField):
     # -*- Your ATSchema to Python Property Bridges Here ... -*-
     def set(self, instance, value, **kwargs):
         """
-        The passed in object should be a records object, or a sequence of dictionaries
+        The passed in object should be a records object, or a sequence of
+        dictionaries
         """
         ObjectField.set(self, instance, value, **kwargs)
 
@@ -41,7 +43,7 @@ class QueryField(ObjectField):
             return value
         querybuilder = QueryBuilder(instance, getSite().REQUEST)
         return querybuilder(value)
-    
+
     def getRaw(self, instance, **kwargs):
         return ObjectField.get(self, instance, **kwargs) or ()
 
