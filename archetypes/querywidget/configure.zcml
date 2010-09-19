@@ -6,6 +6,7 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="plone">
 
+  <include package="plone.app.querystring" />
   <include package="plone.app.contentlisting" />
   <include package="plone.app.vocabularies" />
 
@@ -19,18 +20,16 @@
     provides="Products.GenericSetup.interfaces.EXTENSION"
     />
 
-  <browser:page
+  <browser:resource
     name="archetypes.querywidget.querywidget.js"
-    for="*"
     permission="zope2.View"
-    template="querywidget.js"
+    file="querywidget.js"
     />
 
-  <browser:page
+  <browser:resource
     name="archetypes.querywidget.querywidget.css"
-    for="*"
     permission="zope2.View"
-    template="querywidget.css"
+    file="querywidget.css"
     />
 
 </configure>
