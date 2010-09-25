@@ -105,7 +105,7 @@
                     .addClass('querywidget referenceWidget')
                     .append($(document.createElement('dt'))
                         .html('Select...')
-                        .addClass('hiddenStructure')
+                        .hide()
                     )
                     .append($(document.createElement('dd'))
                         .append($(document.createElement('input'))
@@ -140,7 +140,7 @@
                             .addClass('multipleSelectionWidgetTitle')
                         )
                     )
-                var dd = $(document.createElement('dd')).addClass('hiddenStructure widgetPulldownMenu')
+                var dd = $(document.createElement('dd')).addClass('widgetPulldownMenu').hide()
                 $.each($.querywidget.config.indexes[index].values, function (i, val) {
                     dd.append($(document.createElement('label'))
                         .append($(document.createElement('input'))
@@ -249,8 +249,8 @@
 
                 // Hide controls used for non-javascript only
                 obj.find(".addIndexButton").hide();
-                obj.find(".multipleSelectionWidget dt").removeClass('hiddenStructure');
-                obj.find(".multipleSelectionWidget dd").addClass('hiddenStructure widgetPulldownMenu');
+                obj.find(".multipleSelectionWidget dt").show();
+                obj.find(".multipleSelectionWidget dd").addClass('widgetPulldownMenu').hide();
 
                 $('div.queryindex').each(function () {
                     $(this).before(
@@ -269,11 +269,7 @@
         });
 
         $('.multipleSelectionWidget dt').live('click', function () {
-            if ($(this).parent().children('dd').hasClass('hiddenStructure')) {
-                $(this).parent().children('dd').removeClass('hiddenStructure');
-            } else {
-                $(this).parent().children('dd').addClass('hiddenStructure');
-            }
+            $(this).parent().children('dd').toggle();
         });
 
         $('.queryindex').live('change', function () {

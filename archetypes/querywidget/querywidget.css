@@ -73,7 +73,7 @@ dl.multipleSelectionWidget,
     border-style: solid;
     background: white;
     overflow:auto;
-    height:6.5em;
+    min-height: 2em;
 }
 .multipleSelectionWidget label {
     display: block;
