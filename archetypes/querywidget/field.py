@@ -32,6 +32,7 @@ class QueryField(ObjectField):
         The passed in object should be a records object, or a sequence of
         dictionaries
         """
+
         ObjectField.set(self, instance, value, **kwargs)
 
     def get(self, instance, **kwargs):
@@ -42,7 +43,8 @@ class QueryField(ObjectField):
             # We actually wanted the raw value, should have called getRaw
             return value
         querybuilder = QueryBuilder(instance, getSite().REQUEST)
-        return querybuilder(value)
+
+        return querybuilder(query=value, sort_on=instance.getSort_on(), sort_order=instance.getSort_order())
 
     def getRaw(self, instance, **kwargs):
         return ObjectField.get(self, instance, **kwargs) or ()
