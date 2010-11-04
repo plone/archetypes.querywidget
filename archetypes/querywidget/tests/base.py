@@ -16,7 +16,6 @@ class ArchetypesQueryWidgetLayer(PloneSandboxLayer):
         import archetypes.querywidget
         xmlconfig.file('configure.zcml', archetypes.querywidget,
                        context=configurationContext)
-        z2.installProduct(app, 'archetypes.querywidget')
 
         import plone.app.collection
         xmlconfig.file('configure.zcml', plone.app.collection,
