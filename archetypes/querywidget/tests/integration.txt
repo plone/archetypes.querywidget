@@ -24,3 +24,15 @@ is there, and see if it's rendered
     True
     >>> 'class="field ArchetypesQueryWidget' in browser.contents
     True
+
+Ok, now let's add a simple criteria so we now the control is doing something actually
+
+    >>> browser.getControl(name='addindex').value = ["portal_type"]
+    >>> browser.getControl(name='form.button.addcriteria').click()
+    >>> browser.getControl(name='addoperator').value = ["plone.app.querystring.operation.selection.is"]
+    >>> browser.getControl(name='form.button.addcriteria').click()
+    >>> browser.getControl(name='query.v:records:list').value = ["Document"]
+    >>> browser.getControl(name='form.button.save').click()
+    >>> browser.open(portal.collection.absolute_url()+'/edit')
+    >>> "1 items matching your search terms" in browser.contents
+    True
