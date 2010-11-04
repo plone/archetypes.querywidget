@@ -1,0 +1,26 @@
+archetypes.querywidget
+======================
+This package containts the archetypes field and widget used in plone.app.collection
+to select the search criteria of the collection.
+
+First login as portal owner
+
+    >>> app = self.layer['app']
+    >>> from plone.testing.z2 import Browser
+    >>> browser = Browser(app)
+    >>> browser.handleErrors = False
+    >>> browser.addHeader('Authorization', 'Basic admin:secret')
+
+We added a collection in the test layer, so we check if the query field
+is there, and see if it's rendered
+
+    >>> portal = self.layer['portal']
+    >>> field = portal.collection.getField('query')
+    >>> from archetypes.querywidget.field import QueryField
+    >>> isinstance(field, QueryField)
+    True
+    >>> browser.open(portal.collection.absolute_url()+'/edit')
+    >>> 'id="archetypes-fieldname-query"' in browser.contents
+    True
+    >>> 'class="field ArchetypesQueryWidget' in browser.contents
+    True

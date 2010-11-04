@@ -27,6 +27,10 @@ setup(name='archetypes.querywidget',
           'collective.testcaselayer',
           'plone.app.querystring',
       ],
+      extras_require={
+          'test': [
+            'plone.app.collection',
+            'plone.app.testing', ]},
       entry_points="""
       # -*- Entry points: -*-
       """,
