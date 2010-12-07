@@ -3,6 +3,9 @@ import os
 
 version = '0.1'
 
+tests_require = ['plone.app.collection',
+                 'plone.app.testing']
+
 setup(name='archetypes.querywidget',
       version=version,
       description="",
@@ -24,13 +27,10 @@ setup(name='archetypes.querywidget',
       zip_safe=False,
       install_requires=[
           'setuptools',
-          'collective.testcaselayer',
           'plone.app.querystring',
       ],
-      extras_require={
-          'test': [
-            'plone.app.collection',
-            'plone.app.testing', ]},
+      tests_require=tests_require,
+      extras_require={'test': tests_require},
       entry_points="""
       # -*- Entry points: -*-
       """,
