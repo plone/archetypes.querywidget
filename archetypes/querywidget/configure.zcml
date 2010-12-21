@@ -7,8 +7,6 @@
     i18n_domain="plone">
 
   <include package="plone.app.querystring" />
-  <include package="plone.app.contentlisting" />
-  <include package="plone.app.vocabularies" />
 
   <include file="skins.zcml" />
 
