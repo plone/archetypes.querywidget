@@ -1,5 +1,7 @@
 ;(function($) {
 
+    var base_url = $('base').attr('href');
+
     // Define querywidget namespace if it doesn't exist
     if (typeof($.querywidget) == "undefined") {
         $.querywidget = {
@@ -177,7 +179,7 @@
     };
 
     $.querywidget.updateSearch = function () {
-        var query = portal_url + "/@@querybuilder_html_results?";
+        var query = base_url + "/@@querybuilder_html_results?";
         var querylist  = [];
         $('.ArchetypesQueryWidget .queryindex').each(function () {
             var results = $(this).parents('.criteria').children('.queryresults');
@@ -203,7 +205,7 @@
                     break;
             }
 
-            $.get(portal_url + '/@@querybuildernumberofresults?' + querylist.join('&'),
+            $.get(base_url + '/@@querybuildernumberofresults?' + querylist.join('&'),
                   {},
                   function (data) { results.html(data); });
         });
@@ -238,7 +240,7 @@
         $.querywidget.initialized = true;
 
         // Get configuration
-        $.getJSON(portal_url + '/@@querybuilderjsonconfig', function (data) {
+        $.getJSON(base_url + '/@@querybuilderjsonconfig', function (data) {
             $.querywidget.config = data;
 
             // Find querywidgets

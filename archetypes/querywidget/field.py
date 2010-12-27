@@ -18,6 +18,9 @@ class QueryField(ObjectField):
     """QueryField for storing query"""
     implements(IQueryField)
     _properties = ObjectField._properties.copy()
+    _properties.update({
+        'catalog' : 'portal_catalog'
+    })
 
     security = ClassSecurityInfo()
 
@@ -42,9 +45,9 @@ class QueryField(ObjectField):
         if raw == True:
             # We actually wanted the raw value, should have called getRaw
             return value
-        querybuilder = QueryBuilder(instance, getSite().REQUEST)
+        querybuilder = QueryBuilder(instance, getSite().REQUEST, catalog=self.catalog)
 
-        sort_order = 'reverse' if instance.getSort_reversed() else 'ascending'
+        sort_order = instance.getSort_reversed() and 'reverse' or 'ascending'
         return querybuilder(query=value, sort_on=instance.getSort_on(), sort_order=sort_order)
 
     def getRaw(self, instance, **kwargs):

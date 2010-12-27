@@ -33,5 +33,7 @@ setup(name='archetypes.querywidget',
       extras_require={'test': tests_require},
       entry_points="""
       # -*- Entry points: -*-
+      [z3c.autoinclude.plugin]
+      target = plone
       """,
       )

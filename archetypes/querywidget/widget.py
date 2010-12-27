@@ -21,6 +21,7 @@ class QueryWidget(TypesWidget):
         'macro': 'querywidget',
         'helper_css': ('++resource++archetypes.querywidget.querywidget.css',),
         'helper_js': ('++resource++archetypes.querywidget.querywidget.js',),
+        'registry_prefix' : 'plone.app.querystring',
         }),
 
     security = ClassSecurityInfo()
@@ -43,6 +44,7 @@ class QueryWidget(TypesWidget):
         """get the config"""
         registry = getUtility(IRegistry)
         registryreader = IQuerystringRegistryReader(registry)
+        registryreader.prefix = self.registry_prefix
         config = registryreader()
 
         # Group indices by "group", order alphabetically
