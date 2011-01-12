@@ -179,7 +179,11 @@
     $.querywidget.updateSearch = function () {
         var query = portal_url + "/@@querybuilder_html_results?";
         var querylist  = [];
-        $('.ArchetypesQueryWidget .queryindex').each(function () {
+        var items = $('.ArchetypesQueryWidget .queryindex');
+        if (!items.length) {
+            return;
+        }
+        items.each(function () {
             var results = $(this).parents('.criteria').children('.queryresults');
             var index = $(this).val();
             var operator = $(this).parents('.criteria').children('.queryoperator').val();
