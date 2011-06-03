@@ -98,7 +98,7 @@
                             'name': 'query.v:records:list'
                         })
                         .addClass('queryvalue')
-                    )
+                    );
                 break;
             case 'ReferenceWidget':
                 return $(document.createElement('dl'))
@@ -116,7 +116,7 @@
                             })
                             .addClass('queryvalue')
                         )
-                    )
+                    );
                 break;
             case 'RelativePathWidget':
                 return $(document.createElement('input'))
@@ -139,8 +139,8 @@
                             .html('Select...')
                             .addClass('multipleSelectionWidgetTitle')
                         )
-                    )
-                var dd = $(document.createElement('dd')).addClass('widgetPulldownMenu').hide()
+                    );
+                var dd = $(document.createElement('dd')).addClass('widgetPulldownMenu').hide();
                 $.each($.querywidget.config.indexes[index].values, function (i, val) {
                     dd.append($(document.createElement('label'))
                         .append($(document.createElement('input'))
@@ -153,7 +153,7 @@
                         .append($(document.createElement('span'))
                             .html(val.title)
                         )
-                    )
+                    );
                 });
                 dl.append(dd);
                 return dl;
@@ -168,7 +168,7 @@
 
     $.querywidget.getCurrentWidget  = function (node) {
         var classes = node.attr('class').split(' ');
-        for (i in classes) {
+        for (var i in classes) {
             if (classes[i].indexOf('Widget') != -1) {
                 var classname = classes[i];
                 return classname.slice(0,1).toUpperCase() + classname.slice(1);
@@ -195,7 +195,7 @@
                     if ($(this).val().length != 10) {
                         ok = false;
                     }
-                })
+                });
                 return ok;
             default:
                 /* Backspace and delete should force update */
@@ -223,16 +223,15 @@
             var index = $(this).val();
             var operator = $(this).parents('.criteria').children('.queryoperator').val();
             var widget = $.querywidget.config.indexes[index].operators[operator].widget;
+            var querywidget = $(this).parents('.criteria').find('.querywidget');
             querylist.push('query.i:records=' + index);
             querylist.push('query.o:records=' + operator);
             switch (widget) {
                 case 'DateRangeWidget':
-                    var querywidget = $(this).parents('.criteria').find('.querywidget');
                     querylist.push('query.v:records:list=' + $(querywidget.children('input')[0]).val());
                     querylist.push('query.v:records:list=' + $(querywidget.children('input')[1]).val());
                     break;
                 case 'MultipleSelectionWidget':
-                    var querywidget = $(this).parents('.criteria').find('.querywidget');
                     querywidget.find('input:checked').each(function () {
                         querylist.push('query.v:records:list=' + $(this).val());
                     });
@@ -249,7 +248,7 @@
         query += querylist.join('&');
         query += '&sort_on=' + $('#sort_on').val();
         if ($('#sort_order:checked').length > 0) {
-            query += '&sort_order=reverse'
+            query += '&sort_order=reverse';
         }
         $.get(query, {}, function (data) { $('.ArchetypesQueryWidget .previewresults').html(data); });
     };
@@ -296,7 +295,7 @@
                         $(document.createElement('div'))
                             .addClass('queryresults discreet')
                             .html('')
-                    )
+                    );
                     $(this).replaceWith($.querywidget.createQueryIndex($(this).children('input').val()));
                 });
                 $('div.queryoperator').each(function () {
@@ -332,6 +331,7 @@
                 querywidget.replaceWith($.querywidget.createWidget(widget, index));
             }
             $.querywidget.updateSearch();
+
         });
 
         $('.queryoperator').live('change', function () {
@@ -383,7 +383,7 @@
                     $(document.createElement('div'))
                         .addClass('queryresults discreet')
                         .html('')
-                )
+                );
             newcriteria.append($.querywidget.createQueryIndex(index));
             var operator = $.querywidget.createQueryOperator(index,'');
             newcriteria.append(operator);
@@ -400,7 +400,7 @@
                         'name': 'removecriteria'
                     })
                     .addClass('removecriteria discreet')
-            )
+            );
             criteria.before(newcriteria);
             $(this).val('');
             $.querywidget.updateSearch();
