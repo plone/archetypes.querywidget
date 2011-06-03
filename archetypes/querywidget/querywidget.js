@@ -276,6 +276,16 @@
             $(this).parent().children('dd').toggle();
         });
 
+        /* Clicking outside a multipleSelectionWidget will close all open
+           multipleSelectionWidgets */
+        $(window).click(function(event){
+            if ($(event.target).parents('.multipleSelectionWidget').length) {
+                return;
+            }
+
+            $('.multipleSelectionWidget dd').hide();
+        });
+
         $('.queryindex').live('change', function () {
             var index = $(this).find(':selected')[0].value;
             $(this).parents(".criteria").children('.queryoperator')
