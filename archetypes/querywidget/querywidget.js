@@ -176,6 +176,41 @@
         }
     };
 
+    /* Should livesearch update, looking at the last changed element? */
+    $.querywidget.shouldUpdate = function(node, e) {
+        var criteria = $(node).parents('.criteria');
+        var operator = criteria.children('.queryoperator').val();
+        var values = criteria.children('.queryvalue');
+        var index = criteria.children('.queryindex').val();
+        var querywidget = criteria.children('.querywidget');
+        var widgetname = $.querywidget.config.indexes[index].operators[operator].widget;
+        switch (widgetname) {
+            case 'MultipleSelectionWidget':
+                return true;
+            case 'DateRangeWidget':
+                /* fall through */
+            case 'DateWidget':
+                var ok = true;
+                $(values).each(function(i){
+                    if ($(this).val().length != 10) {
+                        ok = false;
+                    }
+                })
+                return ok;
+            default:
+                /* Backspace and delete should force update */
+                if (e.keyCode == 8 || e.keyCode == 46) {
+                    return true;
+                }
+
+                if ($(node).val().length >= 3) {
+                    return true;
+                }
+                break;
+        }
+        return false;
+    };
+
     $.querywidget.updateSearch = function () {
         var query = portal_url + "/@@querybuilder_html_results?";
         var querylist  = [];
@@ -326,8 +361,10 @@
             $.querywidget.updateSearch();
         });
 
-        $('.queryvalue').live('keyup', function () {
-            $.querywidget.updateSearch();
+        $('.queryvalue').live('keyup', function (e) {
+            if ($.querywidget.shouldUpdate(this, e)) {
+                $.querywidget.updateSearch();
+            }
         });
 
         $('.queryvalue').live('keydown', function (e) {
