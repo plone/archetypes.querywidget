@@ -21,20 +21,7 @@ class QueryField(ObjectField):
 
     security = ClassSecurityInfo()
 
-    def __init__(self, name=None, **kwargs):
-        """ Create QueryField instance"""
-        # call super constructor
-        ObjectField.__init__(self, name, **kwargs)
-
     # -*- Your ATSchema to Python Property Bridges Here ... -*-
-    def set(self, instance, value, **kwargs):
-        """
-        The passed in object should be a records object, or a sequence of
-        dictionaries
-        """
-
-        ObjectField.set(self, instance, value, **kwargs)
-
     def get(self, instance, **kwargs):
         """Get the query dict from the request or from the object"""
         raw = kwargs.get('raw', None)
