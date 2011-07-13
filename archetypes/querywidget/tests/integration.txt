@@ -4,7 +4,7 @@ archetypes.querywidget
 This package contains the archetypes field and widget used in
 plone.app.collection to select the search criteria of the collection.
 
-First login as portal owner
+First login as portal owner:
 
     >>> app = self.layer['app']
     >>> from plone.testing.z2 import Browser
@@ -13,7 +13,7 @@ First login as portal owner
     >>> browser.addHeader('Authorization', 'Basic admin:secret')
 
 We added a collection in the test layer, so we check if the query field
-is there, and see if it's rendered
+is there, and see if it's rendered:
 
     >>> portal = self.layer['portal']
     >>> field = portal.collection.getField('query')
@@ -26,7 +26,7 @@ is there, and see if it's rendered
     >>> 'class="field ArchetypesQueryWidget' in browser.contents
     True
 
-Ok, now let's add a simple criteria so we now the control is doing something actually
+Ok, now let's add a simple criteria so we know the control is doing something:
 
     >>> browser.getControl(name='addindex').value = ["portal_type"]
     >>> browser.getControl(name='form.button.addcriteria').click()
@@ -34,6 +34,6 @@ Ok, now let's add a simple criteria so we now the control is doing something act
     >>> browser.getControl(name='form.button.addcriteria').click()
     >>> browser.getControl(name='query.v:records:list').value = ["Document"]
     >>> browser.getControl(name='form.button.save').click()
-    >>> browser.open(portal.collection.absolute_url()+'/edit')
-    >>> "1 items matching your search terms" in browser.contents
+    >>> browser.open(portal.collection.absolute_url() + '/edit')
+    >>> "Document Test Page" in browser.contents
     True
