@@ -27,7 +27,8 @@ class QueryField(ObjectField):
 
         sort_order = 'reverse' if instance.getSort_reversed() else 'ascending'
         return querybuilder(query=value,
-            sort_on=instance.getSort_on(), sort_order=sort_order)
+            sort_on=instance.getSort_on(), sort_order=sort_order,
+            limit=instance.getLimit())
 
     def getRaw(self, instance, **kwargs):
         return ObjectField.get(self, instance, **kwargs) or ()
