@@ -26,9 +26,11 @@ class QueryField(ObjectField):
         querybuilder = QueryBuilder(instance, getSite().REQUEST)
 
         sort_order = 'reverse' if instance.getSort_reversed() else 'ascending'
-        return querybuilder(query=value,
+        limit = kwargs.get('limit', instance.getLimit())
+        return querybuilder(query=value, batch=kwargs.get('batch', False),
+            b_start=kwargs.get('b_start', 0), b_size=kwargs.get('b_size', 30),
             sort_on=instance.getSort_on(), sort_order=sort_order,
-            limit=instance.getLimit())
+            limit=limit)
 
     def getRaw(self, instance, **kwargs):
         return ObjectField.get(self, instance, **kwargs) or ()
