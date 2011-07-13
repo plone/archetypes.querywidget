@@ -1,20 +1,14 @@
-"""
-    Query Widget
-"""
-
 from AccessControl import ClassSecurityInfo
+from plone.registry.interfaces import IRegistry
 from Products.Archetypes.Widget import TypesWidget
 from Products.Archetypes.Registry import registerWidget
 from zope.component import getMultiAdapter
-
-from plone.registry.interfaces import IRegistry
 from zope.component import getUtility
 
 from plone.app.querystring.interfaces import IQuerystringRegistryReader
 
 
 class QueryWidget(TypesWidget):
-    """QueryWidget"""
 
     _properties = TypesWidget._properties.copy()
     _properties.update({
@@ -26,7 +20,6 @@ class QueryWidget(TypesWidget):
     security = ClassSecurityInfo()
 
     security.declarePublic('process_form')
-
     def process_form(self, instance, field, form, empty_marker=None,
                      emptyReturnsMarker=False, validating=True):
         """A custom implementation for the widget form processing."""
@@ -68,9 +61,8 @@ class QueryWidget(TypesWidget):
             name='display_query_results')(**options)
 
 
-__all__ = ('QueryWidget')
+registerWidget(QueryWidget, title='Query',
+    description=('Field for storing a query'),
+    used_for=('archetypes.querywidget.QueryField',))
 
-registerWidget(QueryWidget,
-               title='Query',
-               description=('Field for storing a query'),
-               used_for=('archetypes.querywidget.QueryField',))
+__all__ = ('QueryWidget', )

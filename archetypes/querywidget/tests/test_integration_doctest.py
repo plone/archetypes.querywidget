@@ -1,9 +1,9 @@
-import unittest
 import doctest
+import unittest
 
 from Testing import ZopeTestCase as ztc
 
-import base
+from archetypes.querywidget.tests import base
 
 
 def test_suite():
@@ -12,7 +12,5 @@ def test_suite():
         ztc.ZopeDocFileSuite(
             'tests/integration.txt', package='archetypes.querywidget',
             test_class=base.ArchetypesQueryWidgetTestCase,
-            optionflags=doctest.REPORT_ONLY_FIRST_FAILURE |
-                        doctest.NORMALIZE_WHITESPACE |
-                        doctest.ELLIPSIS),
+            optionflags=doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS),
         ])

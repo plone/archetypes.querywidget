@@ -1,18 +1,18 @@
 import unittest2 as unittest
-from plone.app.testing import PloneSandboxLayer
-from plone.app.testing import PLONE_FIXTURE
+
 from plone.app.testing import applyProfile
 from plone.app.testing import login
-from zope.configuration import xmlconfig
+from plone.app.testing import PloneSandboxLayer
+from plone.app.testing import PLONE_FIXTURE
 from plone.app.testing.layers import IntegrationTesting
 from plone.testing import z2
+from zope.configuration import xmlconfig
 
 
 class ArchetypesQueryWidgetLayer(PloneSandboxLayer):
     defaultBases = (PLONE_FIXTURE,)
 
     def setUpZope(self, app, configurationContext):
-        # load ZCML
         import archetypes.querywidget
         xmlconfig.file('configure.zcml', archetypes.querywidget,
                        context=configurationContext)
@@ -23,12 +23,7 @@ class ArchetypesQueryWidgetLayer(PloneSandboxLayer):
         z2.installProduct(app, 'plone.app.collection')
 
     def setUpPloneSite(self, portal):
-        # install into the Plone site
         applyProfile(portal, 'plone.app.collection:default')
-
-        # create admin user
-        # z2.setRoles(portal, TEST_USER_NAME, ['Manager']) does not work
-        # setRoles(portal, TEST_USER_NAME, ['Manager']) is not working either
         portal.acl_users.userFolderAddUser('admin',
                                            'secret',
                                            ['Manager'],
@@ -37,7 +32,7 @@ class ArchetypesQueryWidgetLayer(PloneSandboxLayer):
 
         # enable workflow for browser tests
         workflow = portal.portal_workflow
-        workflow.setDefaultChain('plone_workflow')
+        workflow.setDefaultChain('simple_publication_workflow')
 
         # add a page, so we can test with it
         portal.invokeFactory("Document",

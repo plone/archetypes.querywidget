@@ -1,7 +1,8 @@
 archetypes.querywidget
 ======================
-This package containts the archetypes field and widget used in plone.app.collection
-to select the search criteria of the collection.
+
+This package contains the archetypes field and widget used in
+plone.app.collection to select the search criteria of the collection.
 
 First login as portal owner
 
