@@ -1,11 +1,8 @@
 Changelog
 =========
 
-
-0.1 - xxxx-xx-xx
+1.0 - unreleased
 ----------------
 
 - Add MANIFEST.in.
   [WouterVH]
-
-- Initial release
