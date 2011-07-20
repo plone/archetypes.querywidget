@@ -13,8 +13,7 @@
     name="default"
     title="Querywidget"
     directory="profiles/default"
-    description="An Archetypeswidget to create persistent searchqueries. This
-                 is used by plone.app.collection."
+    description="An Archetypeswidget to create persistent searchqueries. This is used by plone.app.collection."
     provides="Products.GenericSetup.interfaces.EXTENSION"
     />
 
