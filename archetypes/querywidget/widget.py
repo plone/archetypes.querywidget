@@ -14,7 +14,8 @@ class QueryWidget(TypesWidget):
     _properties.update({
         'macro': 'querywidget',
         'helper_css': ('++resource++archetypes.querywidget.querywidget.css',),
-        'helper_js': ('++resource++archetypes.querywidget.querywidget.js',),
+        'helper_js': ('++resource++archetypes.querywidget.querywidget.js',
+                      '@@datepickerconfig'),
         }),
 
     security = ClassSecurityInfo()

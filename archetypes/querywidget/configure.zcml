@@ -29,4 +29,11 @@
     file="querywidget.css"
     />
 
+  <browser:page
+      name="datepickerconfig"
+      permission="zope2.View"
+      for="*"
+      class="archetypes.querywidget.views.datepickerconfig"
+      />
+
 </configure>

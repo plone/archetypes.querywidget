@@ -24,6 +24,7 @@ setup(name='archetypes.querywidget',
       install_requires=[
           'setuptools',
           'plone.app.querystring',
+          'plone.app.jquerytools',
       ],
       entry_points="""
       [z3c.autoinclude.plugin]

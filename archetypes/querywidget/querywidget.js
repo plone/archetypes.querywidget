@@ -69,24 +69,31 @@
                     .addClass('querywidget queryvalue stringWidget');
                 break;
             case 'DateWidget':
-                return $(document.createElement('input'))
+                var widget = $(document.createElement('input'))
                     .attr({
                         'autocomplete': 'off',
-                        'type': 'text',
+                        'type': 'date',
                         'name': 'query.v:records'
                     })
-                    .addClass('querywidget queryvalue dateWidget');
+                    .addClass('querywidget queryvalue dateWidget')
+                    .dateinput().removeClass('date')
+                    .change(function(e){
+                        $.querywidget.updateSearch();
+                    });
+                return widget;
                 break;
             case 'DateRangeWidget':
+
                 return $(document.createElement('div'))
                     .addClass('querywidget dateRangeWidget')
                     .append($(document.createElement('input'))
                         .attr({
                             'autocomplete': 'off',
-                            'type': 'text',
+                            'type': 'date',
                             'name': 'query.v:records:list'
                         })
                         .addClass('queryvalue')
+                        .dateinput().removeClass('date')
                     )
                     .append($(document.createElement('span'))
                         .html(' and ')
@@ -94,10 +101,11 @@
                     .append($(document.createElement('input'))
                         .attr({
                             'autocomplete': 'off',
-                            'type': 'text',
+                            'type': 'date',
                             'name': 'query.v:records:list'
                         })
                         .addClass('queryvalue')
+                        .dateinput().removeClass('date')
                     );
                 break;
             case 'ReferenceWidget':
@@ -190,13 +198,9 @@
             case 'DateRangeWidget':
                 /* fall through */
             case 'DateWidget':
-                var ok = true;
-                $(values).each(function(i){
-                    if ($(this).val().length != 10) {
-                        ok = false;
-                    }
-                });
-                return ok;
+                /* We use a datepicker which has it's own change handler. That
+                   one does the refresh. */
+                return false;
             default:
                 /* Backspace and delete should force update */
                 if (e.keyCode == 8 || e.keyCode == 46) {
