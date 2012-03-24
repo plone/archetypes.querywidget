@@ -37,37 +37,37 @@
                                 <div class="queryindex">
                                     <input type="hidden" name="query.i:records"
                                            tal:attributes="name python:str(fieldName)+'.i:records'; value row/i" />
-                                    <span tal:content="python:indexes[row.i]['title']"/>
+                                    <span tal:content="python:indexes[row['i']]['title']"/>
                                 </div>
 
                                 <div class="queryoperator">
                                     <input type="hidden" name="query.o:records"
                                            tal:attributes="name python:str(fieldName)+'.o:records'; value row/o" />
-                                    <span tal:content="python:indexes[row.i]['operators'][row.o]['title']"/>
+                                    <span tal:content="python:indexes[row['i']]['operators'][row['o']]['title']"/>
                                 </div>
 
                                 <input class="querywidget queryvalue stringWidget"
                                        autocomplete="off" type="text" name="query.v:records"
                                        tal:attributes="name python:str(fieldName)+'.v:records'; value python:row['v']"
-                                       tal:condition="python:indexes[row.i]['operators'][row.o]['widget'] == 'StringWidget'"/>
+                                       tal:condition="python:indexes[row['i']]['operators'][row['o']]['widget'] == 'StringWidget'"/>
 
                                 <dl class="querywidget queryvalue multipleSelectionWidget"
-                                    tal:condition="python:indexes[row.i]['operators'][row.o]['widget'] == 'MultipleSelectionWidget'">
+                                    tal:condition="python:indexes[row['i']]['operators'][row['o']]['widget'] == 'MultipleSelectionWidget'">
                                     <dt class="hiddenStructure"><span class="arrowDownAlternative">&#09660;</span><span class="multipleSelectionWidgetTitle" i18n:translate="">Select&hellip;</span></dt>
                                     <dd>
-                                        <tal:values repeat="index python:indexes[row.i]['values'].keys()">
+                                        <tal:values repeat="index python:indexes[row['i']]['values'].keys()">
                                             <label>
                                                 <input type="checkbox" name="query.v:records:list"
                                                        tal:attributes="name python:str(fieldName)+'.v:records:list'; value index;
-                                                       checked python: row.has_key('v') and index in row.v and 'checked' or nothing"/>
-                                                <span tal:content="python:indexes[row.i]['values'][index]['title']"/>
+                                                       checked python: row.has_key('v') and index in row['v'] and 'checked' or nothing"/>
+                                                <span tal:content="python:indexes[row['i']]['values'][index]['title']"/>
                                             </label>
                                         </tal:values>
                                     </dd>
                                 </dl>
 
                                 <dl class="querywidget referenceWidget"
-                                    tal:condition="python:indexes[row.i]['operators'][row.o]['widget'] == 'ReferenceWidget'">
+                                    tal:condition="python:indexes[row['i']]['operators'][row['o']]['widget'] == 'ReferenceWidget'">
                                     <dt class="hiddenStructure" i18n:translate="">Select&hellip;</dt>
                                     <dd>
                                         <input class="queryvalue" autocomplete="off" type="text" name="query.v:records" tal:attributes="name python:str(fieldName)+'.v:records'; value python:row['v']" />
@@ -77,10 +77,10 @@
                                 <input class="querywidget queryvalue dateWidget"
                                        autocomplete="off" type="text" class="queryvalue" name="query.v:records"
                                        tal:attributes="name python:str(fieldName)+'.v:records'; value python:row['v']"
-                                       tal:condition="python:indexes[row.i]['operators'][row.o]['widget'] == 'DateWidget'"/>
+                                       tal:condition="python:indexes[row['i']]['operators'][row['o']]['widget'] == 'DateWidget'"/>
 
                                 <div class="querywidget queryvalue dateRangeWidget"
-                                     tal:condition="python:indexes[row.i]['operators'][row.o]['widget'] == 'DateRangeWidget'">
+                                     tal:condition="python:indexes[row['i']]['operators'][row['o']]['widget'] == 'DateRangeWidget'">
                                     <input autocomplete="off" type="text" name="query.v:records:list"
                                            tal:attributes="name python:str(fieldName)+'.v:records:list'; value python:row['v'][0]"/>
                                     <span> and </span>
@@ -91,10 +91,10 @@
                                 <input class="querywidget queryvalue relativePathWidget"
                                        autocomplete="off" type="text" class="queryvalue" name="query.v:records"
                                        tal:attributes="name python:str(fieldName)+'.v:records'; value python:row['v']"
-                                       tal:condition="python:indexes[row.i]['operators'][row.o]['widget'] == 'RelativePathWidget'"/>
+                                       tal:condition="python:indexes[row['i']]['operators'][row['o']]['widget'] == 'RelativePathWidget'"/>
 
                                 <div class="querywidget queryvalue emptyWidget"
-                                     tal:condition="python:indexes[row.i]['operators'][row.o]['widget'] == None">
+                                     tal:condition="python:indexes[row['i']]['operators'][row['o']]['widget'] == None">
                                      &nbsp;
                                 </div>
 
