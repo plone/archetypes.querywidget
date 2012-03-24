@@ -4,7 +4,10 @@ Changelog
 1.0.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Render the "Remove line" via a view instead of creating it in javascript, 
+  so that we can localize it.
+  Refs http://dev.plone.org/ticket/12377
+  [esteele]
 
 
 1.0.1 (2011-08-25)

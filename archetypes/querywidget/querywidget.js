@@ -393,18 +393,10 @@
             newcriteria.append(operator);
             var operatorvalue = $(operator.children()[0]).attr('value');
             newcriteria.append($.querywidget.createWidget($.querywidget.config.indexes[index].operators[operatorvalue].widget, index));
-            newcriteria.append(
 
-                // How will we translate these values?
+            $.get(portal_url + '/@@archetypes-querywidget-removecriterialink',
+              {}, function (data) { newcriteria.append(data);});
 
-                $(document.createElement('input'))
-                    .attr({
-                        'value': 'Remove line',
-                        'type': 'submit',
-                        'name': 'removecriteria'
-                    })
-                    .addClass('removecriteria discreet')
-            );
             criteria.before(newcriteria);
             $(this).val('');
             $.querywidget.updateSearch();

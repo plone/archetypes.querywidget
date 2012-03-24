@@ -36,4 +36,11 @@
       class="archetypes.querywidget.views.datepickerconfig"
       />
 
+  <browser:page
+      name="archetypes-querywidget-removecriterialink"
+      permission="zope2.View"
+      for="*"
+      template="templates/remove_criteria_link.pt"
+      />
+
 </configure>
