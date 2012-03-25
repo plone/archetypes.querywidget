@@ -6,7 +6,7 @@
 }
 .queryoperator, .addOperator {
     display: block;
-    width: 100px;
+    width: 160px;
     float: left;
     margin-right: 0.5em;
 }
