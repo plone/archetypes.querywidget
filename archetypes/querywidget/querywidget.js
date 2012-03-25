@@ -206,6 +206,8 @@
                 /* We use a datepicker which has it's own change handler. That
                    one does the refresh. */
                 return false;
+            case 'RelativeDateWidget':
+                return true;
             default:
                 /* Backspace and delete should force update */
                 if (e.keyCode == 8 || e.keyCode == 46) {
