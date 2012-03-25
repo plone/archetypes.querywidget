@@ -27,3 +27,9 @@ jQuery.tools.dateinput.conf.format = "mm/dd/yyyy";
                                 shortdays=','.join(calendar.getDayAbbreviations()),
                                 format=format
                                 ))
+
+class WidgetTraverse(BrowserView):
+
+    @property
+    def macros(self):
+        return self.index.macros
