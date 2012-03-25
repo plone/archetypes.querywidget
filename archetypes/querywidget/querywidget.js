@@ -68,6 +68,11 @@
                     })
                     .addClass('querywidget queryvalue stringWidget');
                 break;
+            case 'RelativeDateWidget':
+                wrapper = $(document.createElement('span'));
+                wrapper.addClass('querywidget relativeDateWidget');
+                wrapper.load(portal_url + '/@@archetypes-querywidget-relativedateinput');
+                return wrapper;
             case 'DateWidget':
                 var widget = $(document.createElement('input'))
                     .attr({
