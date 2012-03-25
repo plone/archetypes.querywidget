@@ -43,11 +43,4 @@
       template="templates/remove_criteria_link.pt"
       />
 
-  <browser:page
-      name="archetypes-querywidget-relativedateinput"
-      permission="zope2.View"
-      for="*"
-      template="templates/relative_date_input.pt"
-      />
-
 </configure>
