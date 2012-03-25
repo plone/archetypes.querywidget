@@ -69,10 +69,21 @@
                     .addClass('querywidget queryvalue stringWidget');
                 break;
             case 'RelativeDateWidget':
-                wrapper = $(document.createElement('span'));
-                wrapper.addClass('querywidget relativeDateWidget');
-                wrapper.load(portal_url + '/@@archetypes-querywidget-relativedateinput');
-                return wrapper;
+
+                return $(document.createElement('span'))
+                    .addClass('querywidget relativeDateWidget')
+                    .append(
+                        $(document.createElement('input'))
+                            .attr({
+                                'autocomplete': 'off',
+                                'type': 'text',
+                                'name': 'query.v:records',
+                                'class': 'queryvalue'
+                            })
+                    .after($(document.createElement('span'))
+                        .html(' days')
+                    ));
+                break;
             case 'DateWidget':
                 var widget = $(document.createElement('input'))
                     .attr({
