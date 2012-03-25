@@ -82,6 +82,9 @@ dl.multipleSelectionWidget,
     float: left;
     width: 200px;
 }
+.querywidget input[type="text"] {
+    width: auto;
+}
 .referenceWidget input {
     width: 200px;
 }
