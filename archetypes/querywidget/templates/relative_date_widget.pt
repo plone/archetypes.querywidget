@@ -16,7 +16,7 @@
                                        value value|nothing;"
                        
                        /> 
-                 <span> days</span>
+                 <span i18n:translate="">days</span>
                 </div>
     </metal:widget>
     

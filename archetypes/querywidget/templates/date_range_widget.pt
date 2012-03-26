@@ -19,7 +19,7 @@
                                  value start_date;"
                  name="query.v:records:list"/>
           
-          <span> and </span>
+          <span  i18n:translate="">and</span>
 
           <input autocomplete="off" 
                  type="text"
