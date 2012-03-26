@@ -207,9 +207,11 @@
                             <label for="sort_on" i18n:translate="">
                             Sort on
                             </label>
-                            <select name="sort_on" id="sort_on">
+                            <select name="sort_on" id="sort_on"
+                                    tal:define="current request/sort_on|context/getSort_on|nothing">
                                 <tal:index repeat="index python:sortable_indexes.keys()">
-                                    <option tal:attributes="value index; selected python:(request.has_key('sort_on') and request.sort_on == index) and 'selected' or nothing"
+                                    <option tal:attributes="value index; 
+                                        selected python:'selected' if current == index else nothing"
                                             tal:content="python:sortable_indexes[index]['title']">Index</option>
                                 </tal:index>
                             </select>

@@ -4,6 +4,9 @@ Changelog
 1.0.2 (unreleased)
 ------------------
 
+- Show currently-selected sort index.
+  [esteele]
+
 - Move querywidget widgets into browser views so we're not redefining the 
   same template code in 3 places.
   [esteele]
