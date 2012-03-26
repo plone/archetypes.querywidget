@@ -58,136 +58,50 @@
     };
 
     $.querywidget.createWidget = function (type, index) {
+        wrapper = $(document.createElement('div'));
         switch (type) {
             case 'StringWidget':
-                return $(document.createElement('input'))
-                    .attr({
-                        'autocomplete': 'off',
-                        'type': 'text',
-                        'name': 'query.v:records'
-                    })
-                    .addClass('querywidget queryvalue stringWidget');
+                wrapper.load(portal_url + '/@@archetypes-querywidget-stringwidget');
                 break;
             case 'RelativeDateWidget':
-
-                return $(document.createElement('span'))
-                    .addClass('querywidget relativeDateWidget')
-                    .append(
-                        $(document.createElement('input'))
-                            .attr({
-                                'autocomplete': 'off',
-                                'type': 'text',
-                                'name': 'query.v:records',
-                                'class': 'queryvalue'
-                            })
-                    .after($(document.createElement('span'))
-                        .html(' days')
-                    ));
+                wrapper.load(portal_url + '/@@archetypes-querywidget-relativedatewidget');
                 break;
             case 'DateWidget':
-                var widget = $(document.createElement('input'))
-                    .attr({
-                        'autocomplete': 'off',
-                        'type': 'date',
-                        'name': 'query.v:records'
-                    })
-                    .addClass('querywidget queryvalue dateWidget')
-                    .dateinput().removeClass('date')
-                    .change(function(e){
-                        $.querywidget.updateSearch();
+                wrapper.load(portal_url + '/@@archetypes-querywidget-datewidget',
+                    function(){
+                        $(this).find('input')
+                            .dateinput().removeClass('date')
+                            .change(function(e){
+                                $.querywidget.updateSearch();
+                            });
                     });
-                return widget;
                 break;
             case 'DateRangeWidget':
-
-                return $(document.createElement('div'))
-                    .addClass('querywidget dateRangeWidget')
-                    .append($(document.createElement('input'))
-                        .attr({
-                            'autocomplete': 'off',
-                            'type': 'date',
-                            'name': 'query.v:records:list'
-                        })
-                        .addClass('queryvalue')
-                        .dateinput().removeClass('date')
-                    )
-                    .append($(document.createElement('span'))
-                        .html(' and ')
-                    )
-                    .append($(document.createElement('input'))
-                        .attr({
-                            'autocomplete': 'off',
-                            'type': 'date',
-                            'name': 'query.v:records:list'
-                        })
-                        .addClass('queryvalue')
-                        .dateinput().removeClass('date')
-                    );
+                wrapper.load(portal_url + '/@@archetypes-querywidget-daterangewidget',
+                    function(){
+                        $(this).find('input')
+                            .dateinput().removeClass('date')
+                            .change(function(e){
+                                $.querywidget.updateSearch();
+                            });
+                    });
                 break;
             case 'ReferenceWidget':
-                return $(document.createElement('dl'))
-                    .addClass('querywidget referenceWidget')
-                    .append($(document.createElement('dt'))
-                        .html('Select...')
-                        .hide()
-                    )
-                    .append($(document.createElement('dd'))
-                        .append($(document.createElement('input'))
-                            .attr({
-                                'autocomplete': 'off',
-                                'type': 'text',
-                                'name': 'query.v:records'
-                            })
-                            .addClass('queryvalue')
-                        )
-                    );
+                wrapper.load(portal_url + '/@@archetypes-querywidget-referencewidget');
                 break;
             case 'RelativePathWidget':
-                return $(document.createElement('input'))
-                    .attr({
-                        'autocomplete': 'off',
-                        'type': 'text',
-                        'name': 'query.v:records'
-                    })
-                    .addClass('querywidget queryvalue relativePathWidget');
+                wrapper.load(portal_url + '/@@archetypes-querywidget-relativepathwidget');
                 break;
             case 'MultipleSelectionWidget':
-                var dl = $(document.createElement('dl'))
-                    .addClass('querywidget multipleSelectionWidget')
-                    .append($(document.createElement('dt'))
-                        .append($(document.createElement('span'))
-                            .addClass('arrowDownAlternative')
-                            .html('&#09660;')
-                        )
-                        .append($(document.createElement('span'))
-                            .html('Select...')
-                            .addClass('multipleSelectionWidgetTitle')
-                        )
-                    );
-                var dd = $(document.createElement('dd')).addClass('widgetPulldownMenu').hide();
-                $.each($.querywidget.config.indexes[index].values, function (i, val) {
-                    dd.append($(document.createElement('label'))
-                        .append($(document.createElement('input'))
-                            .attr({
-                                'type': 'checkbox',
-                                'name': 'query.v:records:list',
-                                'value': i
-                            })
-                        )
-                        .append($(document.createElement('span'))
-                            .html(val.title)
-                        )
-                    );
-                });
-                dl.append(dd);
-                return dl;
+                wrapper.load(portal_url + '/@@archetypes-querywidget-multipleselectionwidget',
+                            {'index': index});
                 break;
             default:
-                return $(document.createElement('div'))
-                    .html('&nbsp;')
-                    .addClass('querywidget queryvalue emptyWidget');
+                wrapper.load(portal_url + '/@@archetypes-querywidget-emptywidget');
                 break;
         }
+        console.log(wrapper);
+        return wrapper;
     };
 
     $.querywidget.getCurrentWidget  = function (node) {
@@ -360,7 +274,7 @@
             var index = $(this).parents('.criteria').children('.queryindex').val();
             var operatorvalue = $(this).children(':selected')[0].value;
             var widget = $.querywidget.config.indexes[index].operators[operatorvalue].widget;
-            var querywidget = $(this).parent().children('.querywidget');
+            var querywidget = $(this).parent().find('.querywidget');
             if (widget != $.querywidget.getCurrentWidget(querywidget)) {
                 querywidget.replaceWith($.querywidget.createWidget(widget, index));
             }

@@ -95,7 +95,7 @@ dl.querywidget {
 dl.querywidget dd {
     margin: 0;
 }
-.dateRangeWidget input {
+.dateRangeWidget input.queryvalue {
     width: 78px;
 }
 .criteria {
