@@ -4,6 +4,13 @@ Changelog
 1.0.2 (unreleased)
 ------------------
 
+- Move querywidget widgets into browser views so we're not redefining the 
+  same template code in 3 places.
+  [esteele]
+
+- Add a relative date widget.
+  [esteele]
+
 - Fix errors in widget's dict access in edit template. 
   [esteele]
 

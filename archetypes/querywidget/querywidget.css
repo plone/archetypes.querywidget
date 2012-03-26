@@ -6,7 +6,7 @@
 }
 .queryoperator, .addOperator {
     display: block;
-    width: 100px;
+    width: 160px;
     float: left;
     margin-right: 0.5em;
 }
@@ -82,6 +82,9 @@ dl.multipleSelectionWidget,
     float: left;
     width: 200px;
 }
+.querywidget input[type="text"] {
+    width: auto;
+}
 .referenceWidget input {
     width: 200px;
 }
@@ -92,7 +95,7 @@ dl.querywidget {
 dl.querywidget dd {
     margin: 0;
 }
-.dateRangeWidget input {
+.dateRangeWidget input.queryvalue {
     width: 78px;
 }
 .criteria {

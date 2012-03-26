@@ -43,4 +43,77 @@
       template="templates/remove_criteria_link.pt"
       />
 
+  <browser:page
+      name="archetypes-querywidget-emptywidget"
+      permission="zope2.View"
+      for="*"
+      template="templates/empty_widget.pt"
+      class=".views.WidgetTraverse"
+      allowed_attributes="macros"
+      />
+
+  <browser:page
+      name="archetypes-querywidget-stringwidget"
+      permission="zope2.View"
+      for="*"
+      template="templates/string_widget.pt"
+      class=".views.WidgetTraverse"
+      allowed_attributes="macros"
+      />
+
+  <browser:page
+      name="archetypes-querywidget-datewidget"
+      permission="zope2.View"
+      for="*"
+      template="templates/date_widget.pt"
+      class=".views.WidgetTraverse"
+      allowed_attributes="macros"
+      />
+
+  <browser:page
+      name="archetypes-querywidget-daterangewidget"
+      permission="zope2.View"
+      for="*"
+      template="templates/date_range_widget.pt"
+      class=".views.WidgetTraverse"
+      allowed_attributes="macros"
+      />
+
+  <browser:page
+      name="archetypes-querywidget-multipleselectionwidget"
+      permission="zope2.View"
+      for="*"
+      template="templates/multiple_selection_widget.pt"
+      class=".views.MultiSelectWidget"
+      allowed_attributes="macros"
+      />
+
+  <browser:page
+      name="archetypes-querywidget-referencewidget"
+      permission="zope2.View"
+      for="*"
+      template="templates/reference_widget.pt"
+      class=".views.WidgetTraverse"
+      allowed_attributes="macros"
+      />
+
+  <browser:page
+      name="archetypes-querywidget-relativedatewidget"
+      permission="zope2.View"
+      for="*"
+      template="templates/relative_date_widget.pt"
+      class=".views.WidgetTraverse"
+      allowed_attributes="macros"
+      />
+
+  <browser:page
+      name="archetypes-querywidget-relativepathwidget"
+      permission="zope2.View"
+      for="*"
+      template="templates/relative_path_widget.pt"
+      class=".views.WidgetTraverse"
+      allowed_attributes="macros"
+      />
+
+
 </configure>
