@@ -100,7 +100,6 @@
                 wrapper.load(portal_url + '/@@archetypes-querywidget-emptywidget');
                 break;
         }
-        console.log(wrapper);
         return wrapper;
     };
 
