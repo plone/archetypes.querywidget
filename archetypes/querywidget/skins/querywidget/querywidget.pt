@@ -49,44 +49,44 @@
 
 
                                 <tal:widget tal:condition="python:widget_name == 'StringWidget'">
-                                     <tal:value tal:define="value python:row['v']">
+                                     <tal:value tal:define="value python:row.get('v')">
                                          <metal:field use-macro="context/@@archetypes-querywidget-stringwidget/macros/widget" />
                                      </tal:value>
                                 </tal:widget>
 
                                 <tal:widget tal:condition="python:widget_name == 'MultipleSelectionWidget'">
-                                     <tal:value tal:define="value python:row['v'];
+                                     <tal:value tal:define="value python:row.get('v');
                                                             index python:row['i'];">
                                         <metal:field use-macro="context/@@archetypes-querywidget-multipleselectionwidget/macros/widget" />
                                      </tal:value>
                                 </tal:widget>
 
                                 <tal:widget tal:condition="python:widget_name == 'ReferenceWidget'">
-                                    <tal:value tal:define="value python:row['v']">
+                                    <tal:value tal:define="value python:row.get('v')">
                                          <metal:field use-macro="context/@@archetypes-querywidget-referencewidget/macros/widget" />
                                     </tal:value>
                                 </tal:widget>
 
                                 <tal:widget tal:condition="python:widget_name == 'DateWidget'">
-                                     <tal:value tal:define="value python:row['v']">
+                                     <tal:value tal:define="value python:row.get('v')">
                                          <metal:field use-macro="context/@@archetypes-querywidget-datewidget/macros/widget" />
                                      </tal:value>
                                 </tal:widget>
 
                                 <tal:widget tal:condition="python:widget_name == 'DateRangeWidget'">
-                                    <tal:value tal:define="value python:row['v']">
+                                    <tal:value tal:define="value python:row.get('v')">
                                          <metal:field use-macro="context/@@archetypes-querywidget-daterangewidget/macros/widget" />                
                                     </tal:value>
                                 </tal:widget>
 
                                 <tal:widget tal:condition="python:widget_name == 'RelativeDateWidget'">
-                                     <tal:value tal:define="value python:row['v']">
+                                     <tal:value tal:define="value python:row.get('v')">
                                          <metal:field use-macro="context/@@archetypes-querywidget-relativedatewidget/macros/widget" />
                                      </tal:value>
                                 </tal:widget>
 
                                 <tal:widget tal:condition="python:widget_name == 'RelativePathWidget'">
-                                    <tal:value tal:define="value python:row['v']">
+                                    <tal:value tal:define="value python:row.get('v')">
                                     </tal:value>
                                 </tal:widget>
 
@@ -104,8 +104,7 @@
 
                         <tal:row tal:condition="python: addindexselected and addoperatorselected">
                             <div class="criteria" 
-                                 tal:define="widget_name python: addindexselected and addoperatorselected">
-
+                                 tal:define="widget_name python:indexes[request.form['addindex']]['operators'][request.form['addoperator']]['widget']">
                                 <div class="queryindex">
                                     <input type="hidden" name="query.i:records"
                                            tal:attributes="name python:str(fieldName)+'.i:records'; value context/REQUEST/form/addindex" />
@@ -119,44 +118,44 @@
                                 </div>
 
                                 <tal:widget tal:condition="python:widget_name == 'StringWidget'">
-                                     <tal:value tal:define="value python:row['v']">
+                                     <tal:value tal:define="value nothing">
                                          <metal:field use-macro="context/@@archetypes-querywidget-stringwidget/macros/widget" />
                                      </tal:value>
                                 </tal:widget>
 
                                 <tal:widget tal:condition="python:widget_name == 'MultipleSelectionWidget'">
-                                     <tal:value tal:define="value python:row['v'];
-                                                    potential_values python:indexes[row['i']]['values']">
+                                     <tal:value tal:define="value nothing;
+                                                    potential_values python:indexes[request.form['addindex']]['values']">
                                         <metal:field use-macro="context/@@archetypes-querywidget-multipleselectionwidget/macros/widget" />
                                      </tal:value>
                                 </tal:widget>
 
                                 <tal:widget tal:condition="python:widget_name == 'ReferenceWidget'">
-                                    <tal:value tal:define="value python:row['v']">
+                                    <tal:value tal:define="value python:row.get('v')">
                                          <metal:field use-macro="context/@@archetypes-querywidget-referencewidget/macros/widget" />
                                     </tal:value>
                                 </tal:widget>
 
                                 <tal:widget tal:condition="python:widget_name == 'DateWidget'">
-                                     <tal:value tal:define="value python:row['v']">
+                                     <tal:value tal:define="value python:row.get('v')">
                                          <metal:field use-macro="context/@@archetypes-querywidget-datewidget/macros/widget" />
                                      </tal:value>
                                 </tal:widget>
 
                                 <tal:widget tal:condition="python:widget_name == 'DateRangeWidget'">
-                                    <tal:value tal:define="value python:row['v']">
+                                    <tal:value tal:define="value python:row.get('v')">
                                          <metal:field use-macro="context/@@archetypes-querywidget-daterangewidget/macros/widget" />                
                                     </tal:value>
                                 </tal:widget>
 
                                 <tal:widget tal:condition="python:widget_name == 'RelativeDateWidget'">
-                                     <tal:value tal:define="value python:row['v']">
+                                     <tal:value tal:define="value python:row.get('v')">
                                          <metal:field use-macro="context/@@archetypes-querywidget-relativedatewidget/macros/widget" />
                                      </tal:value>
                                 </tal:widget>
 
                                 <tal:widget tal:condition="python:widget_name == 'RelativePathWidget'">
-                                    <tal:value tal:define="value python:row['v']">
+                                    <tal:value tal:define="value python:row.get('v')">
                                     </tal:value>
                                 </tal:widget>
 

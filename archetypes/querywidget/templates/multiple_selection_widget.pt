@@ -9,7 +9,7 @@
             tal:define="fieldName fieldName|string:query;
                         index index|nothing;
                         widget_view nocall:context/@@archetypes-querywidget-multipleselectionwidget;
-                        values python:widget_view.getValues(index);
+                        values potential_values|python:widget_view.getValues(index);
                         value value|nothing">
 
             <dl class="querywidget queryvalue multipleSelectionWidget">
