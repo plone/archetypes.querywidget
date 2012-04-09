@@ -4,6 +4,10 @@ Changelog
 1.0.2 (unreleased)
 ------------------
 
+- Accept an optional 'brains' parameter for the field's get method which
+  says to return normal catalog results instead of an IContentListing.
+  [davisagli]
+
 - Show currently-selected sort index.
   [esteele]
 

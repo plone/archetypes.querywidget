@@ -23,7 +23,7 @@ setup(name='archetypes.querywidget',
       zip_safe=False,
       install_requires=[
           'setuptools',
-          'plone.app.querystring',
+          'plone.app.querystring>=1.0.3dev',
           'plone.app.jquerytools',
       ],
       entry_points="""

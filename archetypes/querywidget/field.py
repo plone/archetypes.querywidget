@@ -30,7 +30,7 @@ class QueryField(ObjectField):
         return querybuilder(query=value, batch=kwargs.get('batch', False),
             b_start=kwargs.get('b_start', 0), b_size=kwargs.get('b_size', 30),
             sort_on=instance.getSort_on(), sort_order=sort_order,
-            limit=limit)
+            limit=limit, brains=kwargs.get('brains', False))
 
     def getRaw(self, instance, **kwargs):
         return ObjectField.get(self, instance, **kwargs) or ()
