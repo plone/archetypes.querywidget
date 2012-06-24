@@ -266,7 +266,6 @@
             var widget = $.querywidget.config.indexes[index].operators[operatorvalue].widget;
             var querywidget = $(this).parent(".criteria").find('.querywidget');
             if ((widget != $.querywidget.getCurrentWidget(querywidget)) || (widget == 'MultipleSelectionWidget')) {
-                console.log('in condition');
                 querywidget.replaceWith($.querywidget.createWidget(widget, index));
             }
             $.querywidget.updateSearch();
