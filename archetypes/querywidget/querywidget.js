@@ -104,6 +104,9 @@
     };
 
     $.querywidget.getCurrentWidget  = function (node) {
+        if (!node.length) {
+            return;
+        }
         var classes = node.attr('class').split(' ');
         for (var i in classes) {
             if (classes[i].indexOf('Widget') != -1) {
