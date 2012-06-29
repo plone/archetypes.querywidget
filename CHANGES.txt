@@ -4,6 +4,10 @@ Changelog
 1.0.3 (unreleased)
 ------------------
 
+- Get date field values from the widget instead of the field, as the field isn't
+  yet updated at this point in the event call.
+  [esteele]
+  
 - Properly handle finding/removing multiselection widgets, which are nested in
   dls. 
   See http://dev.plone.org/ticket/12964
