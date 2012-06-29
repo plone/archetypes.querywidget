@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.0.3 (unreleased)
+1.0.3 (2012-06-29)
 ------------------
 
 - Get date field values from the widget instead of the field, as the field isn't
