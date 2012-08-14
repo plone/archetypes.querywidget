@@ -13,7 +13,7 @@
                         value value|nothing">
 
             <dl class="querywidget queryvalue multipleSelectionWidget">
-                <dt class="hiddenStructure">
+                <dt>
                     <span class="arrowDownAlternative">&#09660;</span>
                     <span class="multipleSelectionWidgetTitle" i18n:translate="">Select&hellip;</span>
                 </dt>
@@ -21,14 +21,14 @@
                     <tal:values repeat="index python:values.keys()">
                         <label>
                             <input type="checkbox" name="query.v:records:list"
-                                   tal:attributes="name python:str(fieldName)+'.v:records:list'; 
+                                   tal:attributes="name python:str(fieldName)+'.v:records:list';
                                                    value index;
                                                    checked python: value and index in value and 'checked' or nothing"/>
                             <span tal:content="python:values[index]['title']"/>
                         </label>
                     </tal:values>
                 </dd>
-            </dl>            
+            </dl>
         </metal:widget>
     </body>
 </html>

@@ -150,7 +150,11 @@
     };
 
     $.querywidget.updateSearch = function () {
-        var query = portal_url + "/@@querybuilder_html_results?";
+        var base_url = $("base").attr("href");
+        if(base_url.indexOf("portal_factory") != -1) {
+            base_url = base_url.split("/").slice(0, -2).join("/");
+        }
+        var query = base_url + "/@@querybuilder_html_results?";
         var querylist  = [];
         var items = $('.ArchetypesQueryWidget .queryindex');
         if (!items.length) {
@@ -166,7 +170,7 @@
             querylist.push('query.o:records=' + operator);
 
             function getDateWidgetValue(obj) {
-                // Get values from the date widget instead of the field itself, as the value 
+                // Get values from the date widget instead of the field itself, as the value
                 // of the field isn't yet updated at this point in the "change" event.
                 value = (obj.data('dateinput') && obj.data('dateinput').getValue('mm/dd/yyyy')) || '';
                 return value;

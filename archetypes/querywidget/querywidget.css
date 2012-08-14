@@ -66,6 +66,7 @@ dl.multipleSelectionWidget,
     width: 198px;
     height: 1.5em;
     overflow: hidden;
+    display:none;
 }
 .multipleSelectionWidget dd {
     width: 198px;
