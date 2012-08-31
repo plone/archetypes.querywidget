@@ -1,0 +1,73 @@
+Changelog
+=========
+
+1.0.5 (unreleased)
+------------------
+
+- fixed https://dev.plone.org/ticket/13144 raw get returns persistent i
+  querystring on .get(context, raw=True)
+  [jensens]
+
+
+1.0.4 (2012-08-14)
+------------------
+
+- Added initially missing RelativePathWidget widget macro
+  [petschki]
+
+- call the "@@querybuilder_html_results" view on collection context
+  [petschki]
+
+1.0.3 (2012-06-29)
+------------------
+
+- Get date field values from the widget instead of the field, as the field isn't
+  yet updated at this point in the event call.
+  [esteele]
+
+- Properly handle finding/removing multiselection widgets, which are nested in
+  dls.
+  See http://dev.plone.org/ticket/12964
+  [esteele]
+
+
+1.0.2 (2012-04-15)
+------------------
+
+- Accept an optional 'brains' parameter for the field's get method which
+  says to return normal catalog results instead of an IContentListing.
+  [davisagli]
+
+- Show currently-selected sort index.
+  [esteele]
+
+- Move querywidget widgets into browser views so we're not redefining the
+  same template code in 3 places.
+  [esteele]
+
+- Add a relative date widget.
+  [esteele]
+
+- Fix errors in widget's dict access in edit template.
+  [esteele]
+
+- Render the "Remove line" via a view instead of creating it in javascript,
+  so that we can localize it.
+  Refs http://dev.plone.org/ticket/12377
+  [esteele]
+
+
+1.0.1 (2011-08-25)
+------------------
+
+- I18n fixes.
+  [vincentfretin]
+
+
+1.0 - 2011-07-19
+----------------
+
+- Initial release.
+
+- Add MANIFEST.in.
+  [WouterVH]
