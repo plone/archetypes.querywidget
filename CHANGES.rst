@@ -4,7 +4,7 @@ Changelog
 1.0.5 (unreleased)
 ------------------
 
-- fixed https://dev.plone.org/ticket/13144 raw get returns persistent i
+- fixed https://dev.plone.org/ticket/13144 raw get returns persistent 
   querystring on .get(context, raw=True)
   [jensens]
 

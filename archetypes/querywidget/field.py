@@ -1,10 +1,10 @@
+from copy import deepcopy
 from AccessControl import ClassSecurityInfo
 from archetypes.querywidget.interfaces import IQueryField
 from Products.Archetypes.Field import ObjectField
 from Products.Archetypes.Field import registerField
 from zope.interface import implements
 from zope.site.hooks import getSite
-
 from plone.app.querystring.querybuilder import QueryBuilder
 
 
@@ -34,7 +34,7 @@ class QueryField(ObjectField):
             limit=limit, brains=kwargs.get('brains', False))
 
     def getRaw(self, instance, **kwargs):
-        return ObjectField.get(self, instance, **kwargs) or ()
+        return deepcopy(ObjectField.get(self, instance, **kwargs) or [])
 
 
 registerField(QueryField, title='QueryField',
