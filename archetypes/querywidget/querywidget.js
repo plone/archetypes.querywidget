@@ -221,9 +221,11 @@
     // Enhance for javascript browsers
     $(document).ready(function () {
 
-        // Init
-        $.querywidget.init();
-
+        // Check if ArchetypesQueryWidget exists on page
+        if ($(".ArchetypesQueryWidget").length != 0) {
+            // Init
+            $.querywidget.init();
+        }
 
     });
 
