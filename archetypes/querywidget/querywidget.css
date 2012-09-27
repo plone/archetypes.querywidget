@@ -69,7 +69,7 @@ dl.multipleSelectionWidget,
     display:none;
 }
 .multipleSelectionWidget dd {
-    max-width: 198px;
+    width: 198px;
     border-width: 1px;
     border-style: solid;
     background: white;
