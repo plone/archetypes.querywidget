@@ -4,6 +4,10 @@ Changelog
 1.0.6 (unreleased)
 ------------------
 
+- Fixed overly long selection lists by displaying scrollbars for multiselection 
+  widgets
+  [ichimdav]
+
 - Fixed conditional initialization of querywidget,
   see https://dev.plone.org/ticket/12529 [kroman0]
 
