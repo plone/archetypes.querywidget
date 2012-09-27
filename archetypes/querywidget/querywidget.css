@@ -69,12 +69,14 @@ dl.multipleSelectionWidget,
     display:none;
 }
 .multipleSelectionWidget dd {
-    width: 198px;
+    max-width: 198px;
     border-width: 1px;
     border-style: solid;
     background: white;
     overflow:auto;
     min-height: 2em;
+    max-height: 355px;
+    position: absolute;
 }
 .multipleSelectionWidget label {
     display: block;
