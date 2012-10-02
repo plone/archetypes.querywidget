@@ -75,6 +75,8 @@ dl.multipleSelectionWidget,
     background: white;
     overflow:auto;
     min-height: 2em;
+    max-height: 355px;
+    position: absolute;
 }
 .multipleSelectionWidget label {
     display: block;
