@@ -71,3 +71,7 @@ class MultiSelectWidget(WidgetTraverse):
         if index is not None:
             values = config['indexes'][index]['values']
         return values
+
+    def getSortedValuesKeys(self, values):
+        # do a lowercase sort of the keys
+        return sorted(values.iterkeys(), key = lambda x : x.lower())

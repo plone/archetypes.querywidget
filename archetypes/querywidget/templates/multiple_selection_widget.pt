@@ -10,6 +10,7 @@
                         index index|nothing;
                         widget_view nocall:context/@@archetypes-querywidget-multipleselectionwidget;
                         values potential_values|python:widget_view.getValues(index);
+                        sorted_values_keys python:widget_view.getSortedValuesKeys(values);
                         value value|nothing">
 
             <dl class="querywidget queryvalue multipleSelectionWidget">
@@ -18,7 +19,7 @@
                     <span class="multipleSelectionWidgetTitle" i18n:translate="">Select&hellip;</span>
                 </dt>
                 <dd>
-                    <tal:values repeat="index python:values.keys()">
+                    <tal:values repeat="index sorted_values_keys">
                         <label>
                             <input type="checkbox" name="query.v:records:list"
                                    tal:attributes="name python:str(fieldName)+'.v:records:list';

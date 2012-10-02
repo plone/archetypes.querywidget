@@ -4,6 +4,9 @@ Changelog
 1.0.6 (unreleased)
 ------------------
 
+- Improved multiselection widget readability by sorting its returned values 
+  [ichimdav]
+
 - Fixed overly long selection lists by displaying scrollbars for multiselection 
   widgets
   [ichimdav]
