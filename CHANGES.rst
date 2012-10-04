@@ -4,6 +4,9 @@ Changelog
 1.0.6 (unreleased)
 ------------------
 
+- Fixed link path reference of querywidget.js for the qunit tests
+  [ichimdav]
+
 - Improved multiselection widget readability by sorting its returned values 
   [ichimdav]
 
