@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.0.6 (unreleased)
+1.0.6 (2012-10-11)
 ------------------
 
 - Fixed link path reference of querywidget.js for the qunit tests
