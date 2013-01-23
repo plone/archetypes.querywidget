@@ -4,7 +4,8 @@ Changelog
 1.0.7 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Bugfix: Handle vocabularies with integers as values,
+  see https://dev.plone.org/ticket/13421 [frapell]
 
 
 1.0.6 (2012-10-11)
