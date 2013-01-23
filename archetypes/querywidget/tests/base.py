@@ -8,14 +8,12 @@ from plone.app.testing.layers import IntegrationTesting
 from plone.testing import z2
 from zope.component import getGlobalSiteManager
 from zope.configuration import xmlconfig
-from zope.interface import implements
 from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleTerm
 from zope.schema.vocabulary import SimpleVocabulary
 
 
 class StringVocab(object):
-    #implements(IVocabularyFactory)
     def __call__(self, context):
         return SimpleVocabulary([
                     SimpleTerm(value='b', title=u'Second'),
@@ -24,7 +22,6 @@ class StringVocab(object):
                 ])
 
 class IntVocab(object):
-    #implements(IVocabularyFactory)
     def __call__(self, context):
         return SimpleVocabulary([
                     SimpleTerm(value=2, title=u'Second'),
