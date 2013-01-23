@@ -4,6 +4,12 @@ from plone.app.querystring.interfaces import IQuerystringRegistryReader
 from zope.publisher.browser import BrowserView
 
 
+def sortable_value(value):
+    if isinstance(value, basestring):
+        value = value.lower()
+    return value
+
+
 class datepickerconfig(BrowserView):
 
     calendar_type = 'gregorian'
@@ -74,4 +80,4 @@ class MultiSelectWidget(WidgetTraverse):
 
     def getSortedValuesKeys(self, values):
         # do a lowercase sort of the keys
-        return sorted(values.iterkeys(), key = lambda x : x.lower() if isinstance(x,str) else x)
+        return sorted(values.iterkeys(), key=sortable_value)
