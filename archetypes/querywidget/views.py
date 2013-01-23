@@ -74,4 +74,4 @@ class MultiSelectWidget(WidgetTraverse):
 
     def getSortedValuesKeys(self, values):
         # do a lowercase sort of the keys
-        return sorted(values.iterkeys(), key = lambda x : x.lower())
+        return sorted(values.iterkeys(), key = lambda x : x.lower() if isinstance(x,str) else x)
