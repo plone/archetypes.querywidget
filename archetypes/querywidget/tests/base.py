@@ -6,11 +6,42 @@ from plone.app.testing import PloneSandboxLayer
 from plone.app.testing import PLONE_FIXTURE
 from plone.app.testing.layers import IntegrationTesting
 from plone.testing import z2
+from zope.component import getGlobalSiteManager
 from zope.configuration import xmlconfig
+from zope.interface import implements
+from zope.schema.interfaces import IVocabularyFactory
+from zope.schema.vocabulary import SimpleTerm
+from zope.schema.vocabulary import SimpleVocabulary
+
+
+class StringVocab(object):
+    #implements(IVocabularyFactory)
+    def __call__(self, context):
+        return SimpleVocabulary([
+                    SimpleTerm(value='b', title=u'Second'),
+                    SimpleTerm(value='c', title=u'Third'),
+                    SimpleTerm(value='a', title=u'First'),
+                ])
+
+class IntVocab(object):
+    #implements(IVocabularyFactory)
+    def __call__(self, context):
+        return SimpleVocabulary([
+                    SimpleTerm(value=2, title=u'Second'),
+                    SimpleTerm(value=3, title=u'Third'),
+                    SimpleTerm(value=1, title=u'First'),
+                ])
+INT_VOCAB = IntVocab()
+STR_VOCAB = StringVocab()
 
 
 class ArchetypesQueryWidgetLayer(PloneSandboxLayer):
     defaultBases = (PLONE_FIXTURE,)
+
+    def registerVocabularies(self):
+        gsm = getGlobalSiteManager()
+        gsm.registerUtility(STR_VOCAB, IVocabularyFactory, u'archetypes.querywidget.string_vocab')
+        gsm.registerUtility(INT_VOCAB, IVocabularyFactory, u'archetypes.querywidget.int_vocab')
 
     def setUpZope(self, app, configurationContext):
         import archetypes.querywidget
@@ -23,7 +54,9 @@ class ArchetypesQueryWidgetLayer(PloneSandboxLayer):
         z2.installProduct(app, 'plone.app.collection')
 
     def setUpPloneSite(self, portal):
+        self.registerVocabularies()
         applyProfile(portal, 'plone.app.collection:default')
+        applyProfile(portal, 'archetypes.querywidget:test_fixture')
         portal.acl_users.userFolderAddUser('admin',
                                            'secret',
                                            ['Manager'],

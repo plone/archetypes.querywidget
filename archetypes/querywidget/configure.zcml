@@ -16,6 +16,13 @@
     description="An Archetypeswidget to create persistent searchqueries. This is used by plone.app.collection."
     provides="Products.GenericSetup.interfaces.EXTENSION"
     />
+    
+  <genericsetup:registerProfile
+    name="test_fixture"
+    title="Querywidget (Test profile)"
+    directory="profiles/test_fixture"
+    provides="Products.GenericSetup.interfaces.EXTENSION"
+    />
 
   <browser:resource
     name="archetypes.querywidget.querywidget.js"
