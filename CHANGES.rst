@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.0.7 (unreleased)
+1.0.7 (2013-01-24)
 ------------------
 
 - Bugfix: Handle vocabularies with integers as values,
