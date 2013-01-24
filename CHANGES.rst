@@ -5,7 +5,7 @@ Changelog
 ------------------
 
 - Bugfix: Handle vocabularies with integers as values,
-  see https://dev.plone.org/ticket/13421 [frapell]
+  see http://dev.plone.org/ticket/13421 [frapell]
 
 
 1.0.6 (2012-10-11)
@@ -22,7 +22,7 @@ Changelog
   [ichimdav]
 
 - Fixed conditional initialization of querywidget,
-  see https://dev.plone.org/ticket/12529 [kroman0]
+  see http://dev.plone.org/ticket/12529 [kroman0]
 
 
 1.0.5 (2012-09-08)
