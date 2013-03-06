@@ -22,6 +22,7 @@
     title="Querywidget (Test profile)"
     directory="profiles/test_fixture"
     provides="Products.GenericSetup.interfaces.EXTENSION"
+    for="Products.CMFPlone.interfaces.ITestCasePloneSiteRoot"
     />
 
   <browser:resource

@@ -4,7 +4,8 @@ Changelog
 1.0.8 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Hide the test_fixture profile from @@plone-addsite view.
+  [esteele]
 
 
 1.0.7 (2013-01-24)
