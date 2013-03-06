@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.0.8 (unreleased)
+1.0.8 (2013-03-06)
 ------------------
 
 - Hide the test_fixture profile from @@plone-addsite view.
