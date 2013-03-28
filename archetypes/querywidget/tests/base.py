@@ -1,5 +1,6 @@
 import unittest2 as unittest
 
+from Products.CMFCore.utils import getToolByName
 from plone.app.testing import applyProfile
 from plone.app.testing import login
 from plone.app.testing import PloneSandboxLayer
@@ -73,8 +74,19 @@ class ArchetypesQueryWidgetLayer(PloneSandboxLayer):
                              "collection",
                              title="Test Collection")
 
+        # add a nested Collection, which may not be allowed by default
+        pt = getToolByName(portal, 'portal_types')
+        myType = pt.getTypeInfo(portal.collection)
+        old_fct = myType.filter_content_types
+        myType.filter_content_types = False
+        portal.collection.invokeFactory("Collection",
+                                        "collection2",
+                                        title="Nested Collection")
+        myType.filter_content_types = old_fct
+
         workflow.doActionFor(portal.document, "publish")
         workflow.doActionFor(portal.collection, "publish")
+        workflow.doActionFor(portal.collection.collection2, "publish")
 
 
 QUERYWIDGET_FIXTURE = ArchetypesQueryWidgetLayer()

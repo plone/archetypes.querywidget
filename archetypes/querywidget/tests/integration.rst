@@ -48,3 +48,50 @@ Now the amount of entries in raw2 has to be the same as in raw1::
     
     >>> length1 == len(raw2)
     True
+
+Nested
+------
+
+Test a nested Collection.  TODO: This is not allowed by default and
+needs an unreleased plone.app.collection.  Maybe test this in a
+different way.
+
+getRaw and get(raw=True) should always return the same value.  With
+recursive=True, the value of the parent is shown::
+
+    >>> nested = portal.collection.collection2
+    >>> field = nested.getField('query')
+    >>> field.getRaw(nested)
+    []
+    >>> field.get(nested, raw=True)
+    []
+    >>> field.getRaw(nested, recursive=True)
+    [{'i': 'start', 'o': 'some.namespace.op.foo'}]
+    >>> field.get(nested, raw=True, recursive=True)
+    [{'i': 'start', 'o': 'some.namespace.op.foo'}]
+
+Set a value and try again::
+
+    >>> field.set(nested, [{'i': 'middle', 'o': 'some.namespace.op.quux'}])
+    >>> field.getRaw(nested)
+    [{'i': 'middle', 'o': 'some.namespace.op.quux'}]
+    >>> field.get(nested, raw=True)
+    [{'i': 'middle', 'o': 'some.namespace.op.quux'}]
+    >>> field.getRaw(nested, recursive=True)
+    [{'i': 'middle', 'o': 'some.namespace.op.quux'},
+     {'i': 'start', 'o': 'some.namespace.op.foo'}]
+    >>> field.get(nested, raw=True, recursive=True)
+    [{'i': 'middle', 'o': 'some.namespace.op.quux'},
+     {'i': 'start', 'o': 'some.namespace.op.foo'}]
+
+Our parent can only add to our query items, not override them::
+
+    >>> field.set(nested, [{'i': 'start', 'o': 'some.namespace.op.quux'}])
+    >>> field.getRaw(nested)
+    [{'i': 'start', 'o': 'some.namespace.op.quux'}]
+    >>> field.get(nested, raw=True)
+    [{'i': 'start', 'o': 'some.namespace.op.quux'}]
+    >>> field.getRaw(nested, recursive=True)
+    [{'i': 'start', 'o': 'some.namespace.op.quux'}]
+    >>> field.get(nested, raw=True, recursive=True)
+    [{'i': 'start', 'o': 'some.namespace.op.quux'}]
