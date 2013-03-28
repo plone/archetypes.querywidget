@@ -20,12 +20,13 @@ class QueryField(ObjectField):
     def get(self, instance, **kwargs):
         """Get the query dict from the request or from the object"""
         raw = kwargs.get('raw', None)
+        if raw:
+            # We actually wanted the raw value, should have called getRaw
+            value = self.getRaw(instance, **kwargs)
+            return value
         # By default we want to merge our query with our parent query.
         recursive = kwargs.get('recursive', True)
         value = self.getRaw(instance, recursive=recursive)
-        if raw:
-            # We actually wanted the raw value, should have called getRaw
-            return value
         querybuilder = QueryBuilder(instance, getSite().REQUEST)
 
         sort_on = kwargs.get('sort_on', instance.getSort_on())
