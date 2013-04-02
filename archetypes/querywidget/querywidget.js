@@ -151,8 +151,8 @@
 
     $.querywidget.updateSearch = function () {
         var base_url = $("base").attr("href");
-        if(base_url.indexOf("portal_factory") != -1) {
-            base_url = base_url.split("/").slice(0, -2).join("/");
+        if(base_url.indexOf("/portal_factory") != -1) {
+            base_url = base_url.slice(0, base_url.indexOf('/portal_factory'));
         }
         var query = base_url + "/@@querybuilder_html_results?";
         var querylist  = [];
