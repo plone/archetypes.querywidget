@@ -4,7 +4,9 @@ Changelog
 1.0.9 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Support recursive fields by default, merging the value of the parent
+  in the query.
+  [maurits]
 
 
 1.0.8 (2013-03-06)
