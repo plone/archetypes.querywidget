@@ -4,9 +4,9 @@ from Acquisition import aq_inner, aq_parent
 from archetypes.querywidget.interfaces import IQueryField
 from Products.Archetypes.Field import ObjectField
 from Products.Archetypes.Field import registerField
+from zope.component import getMultiAdapter
 from zope.interface import implements
 from zope.site.hooks import getSite
-from plone.app.querystring.querybuilder import QueryBuilder
 
 
 class QueryField(ObjectField):
@@ -27,7 +27,8 @@ class QueryField(ObjectField):
         # By default we want to merge our query with our parent query.
         recursive = kwargs.get('recursive', True)
         value = self.getRaw(instance, recursive=recursive)
-        querybuilder = QueryBuilder(instance, getSite().REQUEST)
+        querybuilder = getMultiAdapter((instance, getSite().REQUEST),
+                                       name='querybuilderresults')
 
         sort_on = kwargs.get('sort_on', instance.getSort_on())
         sort_order = 'reverse' if instance.getSort_reversed() else 'ascending'

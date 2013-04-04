@@ -4,6 +4,12 @@ Changelog
 1.0.9 (unreleased)
 ------------------
 
+- When getting the results, get the ``querybuilderresults`` multi
+  adapter, instead of hardcoding the use of the standard
+  ``QueryBuilder`` from ``plone.app.querystring``.  This way, add-ons
+  can override the default behavior.
+  [maurits]
+
 - Support recursive fields by default, merging the value of the parent
   in the query.
   [maurits]
