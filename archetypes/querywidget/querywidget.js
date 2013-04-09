@@ -151,8 +151,10 @@
 
     $.querywidget.updateSearch = function () {
         var base_url = $("base").attr("href");
+        var in_factory = false;
         if(base_url.indexOf("/portal_factory") != -1) {
             base_url = base_url.slice(0, base_url.indexOf('/portal_factory'));
+            in_factory = true;
         }
         var query = base_url + "/@@querybuilder_html_results?";
         var querylist  = [];
@@ -160,6 +162,8 @@
         if (!items.length) {
             return;
         }
+        main_widget = $('.ArchetypesQueryWidget');
+        var fieldname = main_widget.data('fieldname') || '';
         items.each(function () {
             var results = $(this).parents('.criteria').children('.queryresults');
             var index = $(this).val();
@@ -205,12 +209,25 @@
                     break;
             }
             if (querylist.length){
-                $.get(portal_url + '/@@querybuildernumberofresults?' + querylist.join('&'),
+                var query_url = base_url + '/@@querybuildernumberofresults?' + querylist.join('&');
+                if (fieldname) {
+                    query_url += '&fieldname=' + fieldname;
+                }
+                if (in_factory) {
+                    query_url += '&in_factory=1';
+                }
+                $.get(query_url,
                       {},
                       function (data) { results.html(data); });
             }
         });
         query += querylist.join('&');
+        if (fieldname) {
+            query += '&fieldname=' + fieldname;
+        }
+        if (in_factory) {
+            query += '&in_factory=1';
+        }
         query += '&sort_on=' + $('#sort_on').val();
         if ($('#sort_order:checked').length > 0) {
             query += '&sort_order=reverse';
