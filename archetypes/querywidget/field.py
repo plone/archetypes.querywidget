@@ -24,6 +24,13 @@ class QueryField(ObjectField):
             # We actually wanted the raw value, should have called getRaw
             value = self.getRaw(instance, **kwargs)
             return value
+        parent = kwargs.get('parent', None)
+        if parent:
+            # We want the parent value, if it is a good parent
+            del kwargs['parent']
+            parent = aq_parent(aq_inner(instance))
+            value = self.get(parent, **kwargs)
+            return value
         # By default we want to merge our query with our parent query.
         recursive = kwargs.get('recursive', True)
         value = self.getRaw(instance, recursive=recursive)
@@ -39,12 +46,20 @@ class QueryField(ObjectField):
             limit=limit, brains=kwargs.get('brains', False))
 
     def getRaw(self, instance, **kwargs):
+        parent = kwargs.get('parent', None)
+        if parent:
+            # We want the parent value, if it is a good parent
+            del kwargs['parent']
+            parent = aq_parent(aq_inner(instance))
+            value = self.getRaw(parent, **kwargs)
+            return value
         recursive = kwargs.get('recursive', False)
         value = deepcopy(ObjectField.get(self, instance, **kwargs) or [])
         if recursive:
             parent = aq_parent(aq_inner(instance))
             if self.getRaw(parent):
                 # The parent has the same field.  Combine it recursively.
+                # TODO: it might just be a different field with the same name...
                 parent_value = self.getRaw(parent, recursive=recursive)
                 for parent_row in parent_value:
                     parent_index = parent_row['i']

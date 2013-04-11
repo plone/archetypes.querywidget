@@ -26,11 +26,78 @@
                     <div tal:define="config widget/getConfig;
                          indexes config/indexes;
                          rows python:request.get('query',accessor(raw=True));
+                         parentrows python:accessor(raw=True, parent=True);
                          sortable_indexes config/sortable_indexes;
                          addindexselected python:request.has_key('addindex') and request.addindex != '';
                          addoperatorselected python:request.has_key('addoperator') and request.addoperator != ''">
 
                         <tal:counter tal:define="dummy python:request.set('querystringwidgetcounter', 0)"/>
+                        <label tal:condition="parentrows">Parent criteria</label>
+                        <tal:row repeat="row parentrows">
+                            <div class="parentcriteria"
+                                 tal:define="widget_name python:indexes[row['i']]['operators'][row['o']]['widget'];">
+                                <span class="parentqueryindex"
+                                      tal:content="python:indexes[row['i']]['title']"/>
+
+                                <span class="parentqueryoperator"
+                                      tal:content="python:indexes[row['i']]['operators'][row['o']]['title']"/>
+
+
+                                <tal:widget tal:condition="python:widget_name == 'StringWidget'">
+                                     <tal:value tal:define="value python:row.get('v')">
+                                         <metal:field use-macro="context/@@archetypes-querywidget-stringwidget/macros/view" />
+                                     </tal:value>
+                                </tal:widget>
+
+                                <tal:widget tal:condition="python:widget_name == 'MultipleSelectionWidget'">
+                                     <tal:value tal:define="value python:row.get('v');
+                                                            index python:row['i'];">
+                                        <metal:field use-macro="context/@@archetypes-querywidget-multipleselectionwidget/macros/view" />
+                                     </tal:value>
+                                </tal:widget>
+
+                                <tal:widget tal:condition="python:widget_name == 'ReferenceWidget'">
+                                    <tal:value tal:define="value python:row.get('v')">
+                                         <metal:field use-macro="context/@@archetypes-querywidget-referencewidget/macros/widget" />
+                                    </tal:value>
+                                </tal:widget>
+
+                                <tal:widget tal:condition="python:widget_name == 'DateWidget'">
+                                     <tal:value tal:define="value python:row.get('v')">
+                                         <metal:field use-macro="context/@@archetypes-querywidget-datewidget/macros/widget" />
+                                     </tal:value>
+                                </tal:widget>
+
+                                <tal:widget tal:condition="python:widget_name == 'DateRangeWidget'">
+                                    <tal:value tal:define="value python:row.get('v')">
+                                         <metal:field use-macro="context/@@archetypes-querywidget-daterangewidget/macros/widget" />
+                                    </tal:value>
+                                </tal:widget>
+
+                                <tal:widget tal:condition="python:widget_name == 'RelativeDateWidget'">
+                                     <tal:value tal:define="value python:row.get('v')">
+                                         <metal:field use-macro="context/@@archetypes-querywidget-relativedatewidget/macros/widget" />
+                                     </tal:value>
+                                </tal:widget>
+
+                                <tal:widget tal:condition="python:widget_name == 'RelativePathWidget'">
+                                    <tal:value tal:define="value python:row.get('v')">
+                                        <metal:field use-macro="context/@@archetypes-querywidget-relativepathwidget/macros/widget" />
+                                    </tal:value>
+                                </tal:widget>
+
+                                <tal:widget tal:condition="python:widget_name == None">
+                                    <metal:field use-macro="context/@@archetypes-querywidget-emptywidget/macros/widget" />
+                                </tal:widget>
+
+                            </div>
+                        </tal:row>
+
+                        <div />
+
+                        <tal:comment condition="nothing">This label is only needed when there are parent criteria.</tal:comment>
+                        <label tal:condition="parentrows">Normal criteria</label>
+
                         <tal:row repeat="row rows">
                             <div class="criteria"
                                  tal:condition="python:not request.has_key('removecriteria.%s' % repeat['row'].index)"
