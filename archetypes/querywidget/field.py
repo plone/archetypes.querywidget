@@ -24,13 +24,6 @@ class QueryField(ObjectField):
             # We actually wanted the raw value, should have called getRaw
             value = self.getRaw(instance, **kwargs)
             return value
-        parent = kwargs.get('parent', None)
-        if parent:
-            # We want the parent value, if it is a good parent
-            del kwargs['parent']
-            parent = aq_parent(aq_inner(instance))
-            value = self.get(parent, **kwargs)
-            return value
         # By default we want to merge our query with our parent query.
         recursive = kwargs.get('recursive', True)
         value = self.getRaw(instance, recursive=recursive)
@@ -48,19 +41,14 @@ class QueryField(ObjectField):
     def getRaw(self, instance, **kwargs):
         parent = kwargs.get('parent', None)
         if parent:
-            # We want the parent value, if it is a good parent
-            del kwargs['parent']
-            parent = aq_parent(aq_inner(instance))
-            value = self.getRaw(parent, **kwargs)
+            # We want the raw parent value, if it is a good parent
+            value = self._getRawParentValue(instance, **kwargs)
             return value
         recursive = kwargs.get('recursive', False)
         value = deepcopy(ObjectField.get(self, instance, **kwargs) or [])
         if recursive:
-            parent = aq_parent(aq_inner(instance))
-            if self.getRaw(parent):
-                # The parent has the same field.  Combine it recursively.
-                # TODO: it might just be a different field with the same name...
-                parent_value = self.getRaw(parent, recursive=recursive)
+            parent_value = self._getRawParentValue(instance, **kwargs)
+            if parent_value:
                 for parent_row in parent_value:
                     parent_index = parent_row['i']
                     found = False
@@ -74,6 +62,44 @@ class QueryField(ObjectField):
                         value.append(parent_row)
 
         return value
+
+    def _getRawParentValue(self, instance, **kwargs):
+        default = []
+        if 'parent' in kwargs:
+            del kwargs['parent']
+
+        # By default we want to get the value of all our ancestors.
+        recursive = kwargs.get('recursive', True)
+
+        # Get the parent, if it is a good parent.
+        # TODO Check portal_factory.
+        parent = aq_parent(aq_inner(instance))
+        if not hasattr(parent, 'portal_type'):
+            return default
+        if parent.portal_type != instance.portal_type:
+            return default
+
+        # The following will return an empty list if the parent
+        # does not have this same field.
+        values = self.getRaw(parent, recursive=recursive)
+        if not values:
+            return default
+        # Check that the values are what we expect, as it may be for
+        # example a BooleanField with the same name.
+        if not isinstance(values, list) and not isinstance(values, tuple):
+            return default
+        for row in values:
+            # A row must have keys i and o.  v is optional.  We do not
+            # expect a dictionary, but an instance, so we cannot check
+            # isinstance(row, dict).
+            try:
+                if not row.get('i'):
+                    return default
+                if not row.get('o'):
+                    return default
+            except AttributeError:
+                return default
+        return values
 
 
 registerField(QueryField, title='QueryField',
