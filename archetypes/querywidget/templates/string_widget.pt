@@ -21,11 +21,8 @@
          <metal:widget define-macro="view"
                        tal:define="fieldName fieldName|string:query;
                                    value value|nothing">
-          <span class="queryvalue"
-                tal:content="value"
-                />
+          <div class="viewqueryvalue" tal:content="value" />
           </metal:widget>
-
     </body>
 </html>
 

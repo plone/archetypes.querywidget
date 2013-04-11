@@ -104,3 +104,6 @@ dl.querywidget dd {
 .criteria .parentcriteria{
     clear: both;
 }
+div.viewqueryvalue {
+    display: inline;
+}

@@ -30,6 +30,19 @@
           </div>
         </metal:widget>
 
+        <metal:widget define-macro="view"
+                      tal:define="value value|nothing;
+                                  start_date python:value[0] if value else None;
+                                  end_date python:value[1] if value else None;">
+          <div class="viewqueryvalue">
+
+            <span tal:content="start_date" />
+            <span i18n:translate="">and</span>
+            <span tal:content="end_date" />
+
+          </div>
+        </metal:widget>
+
     </body>
 </html>
 

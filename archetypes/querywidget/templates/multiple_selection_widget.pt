@@ -42,7 +42,7 @@
                         value_titles python:[values[index]['title'] for index in sorted_values_keys if value and index in value];
                         display_value python: ', '.join(value_titles);">
 
-            <label tal:content="display_value" />
+            <div class="viewqueryvalue" tal:content="display_value" />
 
         </metal:widget>
     </body>

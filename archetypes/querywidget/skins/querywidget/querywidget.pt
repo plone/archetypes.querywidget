@@ -58,36 +58,36 @@
 
                                 <tal:widget tal:condition="python:widget_name == 'ReferenceWidget'">
                                     <tal:value tal:define="value python:row.get('v')">
-                                         <metal:field use-macro="context/@@archetypes-querywidget-referencewidget/macros/widget" />
+                                         <metal:field use-macro="context/@@archetypes-querywidget-referencewidget/macros/view" />
                                     </tal:value>
                                 </tal:widget>
 
                                 <tal:widget tal:condition="python:widget_name == 'DateWidget'">
                                      <tal:value tal:define="value python:row.get('v')">
-                                         <metal:field use-macro="context/@@archetypes-querywidget-datewidget/macros/widget" />
+                                         <metal:field use-macro="context/@@archetypes-querywidget-datewidget/macros/view" />
                                      </tal:value>
                                 </tal:widget>
 
                                 <tal:widget tal:condition="python:widget_name == 'DateRangeWidget'">
                                     <tal:value tal:define="value python:row.get('v')">
-                                         <metal:field use-macro="context/@@archetypes-querywidget-daterangewidget/macros/widget" />
+                                         <metal:field use-macro="context/@@archetypes-querywidget-daterangewidget/macros/view" />
                                     </tal:value>
                                 </tal:widget>
 
                                 <tal:widget tal:condition="python:widget_name == 'RelativeDateWidget'">
                                      <tal:value tal:define="value python:row.get('v')">
-                                         <metal:field use-macro="context/@@archetypes-querywidget-relativedatewidget/macros/widget" />
+                                         <metal:field use-macro="context/@@archetypes-querywidget-relativedatewidget/macros/view" />
                                      </tal:value>
                                 </tal:widget>
 
                                 <tal:widget tal:condition="python:widget_name == 'RelativePathWidget'">
                                     <tal:value tal:define="value python:row.get('v')">
-                                        <metal:field use-macro="context/@@archetypes-querywidget-relativepathwidget/macros/widget" />
+                                        <metal:field use-macro="context/@@archetypes-querywidget-relativepathwidget/macros/view" />
                                     </tal:value>
                                 </tal:widget>
 
                                 <tal:widget tal:condition="python:widget_name == None">
-                                    <metal:field use-macro="context/@@archetypes-querywidget-emptywidget/macros/widget" />
+                                    <metal:field use-macro="context/@@archetypes-querywidget-emptywidget/macros/view" />
                                 </tal:widget>
 
                             </div>
