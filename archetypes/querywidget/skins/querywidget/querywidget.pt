@@ -166,7 +166,7 @@
 
                                 <input type="submit" name="removecriteria" class="removecriteria discreet"
                                        i18n:attributes="value"
-                                       value="Remove line">
+                                       value="Remove line" />
                             </div>
                         </tal:row>
 
