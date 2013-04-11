@@ -72,10 +72,16 @@ class QueryField(ObjectField):
         recursive = kwargs.get('recursive', True)
 
         # Get the parent, if it is a good parent.
-        # TODO Check portal_factory.
         parent = aq_parent(aq_inner(instance))
         if not hasattr(parent, 'portal_type'):
+            # Probably the root PloneSite.
             return default
+        if parent.portal_type == 'TempFolder':
+            # The instance is being created.
+            # Path is real_parent/portal_factory/temp_folder/collection
+            parent = aq_parent(aq_parent(parent))
+            if not hasattr(parent, 'portal_type'):
+                return default
         if parent.portal_type != instance.portal_type:
             return default
 
