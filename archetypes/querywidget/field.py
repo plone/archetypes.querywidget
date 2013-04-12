@@ -24,8 +24,12 @@ class QueryField(ObjectField):
             # We actually wanted the raw value, should have called getRaw
             value = self.getRaw(instance, **kwargs)
             return value
-        # By default we want to merge our query with our parent query.
-        recursive = kwargs.get('recursive', True)
+        # We may want to merge our query with our parent query.  This
+        # is a new addition to Collections, so we are careful.
+        try:
+            recursive = kwargs.get('recursive', instance.getAcquireCriteria())
+        except AttributeError:
+            recursive = False
         value = self.getRaw(instance, recursive=recursive)
         querybuilder = getMultiAdapter((instance, getSite().REQUEST),
                                        name='querybuilderresults')
@@ -68,9 +72,6 @@ class QueryField(ObjectField):
         if 'parent' in kwargs:
             del kwargs['parent']
 
-        # By default we want to get the value of all our ancestors.
-        recursive = kwargs.get('recursive', True)
-
         # Get the parent, if it is a good parent.
         parent = aq_parent(aq_inner(instance))
         if not hasattr(parent, 'portal_type'):
@@ -84,6 +85,13 @@ class QueryField(ObjectField):
                 return default
         if parent.portal_type != instance.portal_type:
             return default
+
+        # We may want to get the value of all our ancestors.  This
+        # is a new addition to Collections, so we are careful.
+        try:
+            recursive = kwargs.get('recursive', parent.getAcquireCriteria())
+        except AttributeError:
+            recursive = False
 
         # The following will return an empty list if the parent
         # does not have this same field.

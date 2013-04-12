@@ -164,6 +164,7 @@
         }
         main_widget = $('.ArchetypesQueryWidget');
         var fieldname = main_widget.data('fieldname') || '';
+        var acquire = $('#acquireCriteria:checked').length > 0;
         items.each(function () {
             var results = $(this).parents('.criteria').children('.queryresults');
             var index = $(this).val();
@@ -216,6 +217,9 @@
                 if (in_factory) {
                     query_url += '&in_factory=1';
                 }
+                if (acquire) {
+                    query_url += '&acquire=1';
+                }
                 $.get(query_url,
                       {},
                       function (data) { results.html(data); });
@@ -227,6 +231,9 @@
         }
         if (in_factory) {
             query += '&in_factory=1';
+        }
+        if (acquire) {
+            query += '&acquire=1';
         }
         query += '&sort_on=' + $('#sort_on').val();
         if ($('#sort_order:checked').length > 0) {
@@ -329,7 +336,7 @@
             $.querywidget.updateSearch();
         });
 
-        $('#sort_on,#sort_order').live('change', function () {
+        $('#sort_on,#sort_order,#acquireCriteria').live('change', function () {
             $.querywidget.updateSearch();
         });
 
