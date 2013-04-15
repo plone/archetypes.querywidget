@@ -302,13 +302,14 @@
         });
 
         /* Clicking outside a multipleSelectionWidget will close all open
-           multipleSelectionWidgets */
+           multipleSelectionWidgets except for their headers (dt) */
         $(window).click(function(event){
             if ($(event.target).parents('.multipleSelectionWidget').length) {
                 return;
             }
 
             $('.multipleSelectionWidget dd').hide();
+            $('.multipleSelectionWidget dt').show();
         });
 
         $('.queryindex').live('change', function () {
