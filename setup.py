@@ -6,14 +6,14 @@ tests_require = ['plone.app.testing']
 
 setup(name='archetypes.querywidget',
       version=version,
-      description="",
-      long_description=open("README.rst").read() + "\n" +
-                       open("CHANGES.rst").read(),
+      description="Widget for creating catalog queries",
+      long_description=(open("README.rst").read() + "\n" +
+                        open("CHANGES.rst").read()),
       classifiers=[
-        "Framework :: Plone",
-        "License :: OSI Approved :: GNU General Public License (GPL)",
-        "Programming Language :: Python",
-        ],
+          "Framework :: Plone",
+          "License :: OSI Approved :: GNU General Public License (GPL)",
+          "Programming Language :: Python",
+          ],
       keywords='',
       author='Plone Foundation',
       author_email='plone-developers@lists.sourceforge.net',
