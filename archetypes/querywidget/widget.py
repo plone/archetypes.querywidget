@@ -13,6 +13,11 @@ class QueryWidget(TypesWidget):
     _properties = TypesWidget._properties.copy()
     _properties.update({
         'macro': 'querywidget',
+        # Show criteria of parent (if applicable) readonly:
+        'show_parent_criteria': True,
+        # Show own original criteria readonly.  Can be handy when you
+        # have large selection criteria:
+        'show_original_criteria': False,
         'helper_css': ('++resource++archetypes.querywidget.querywidget.css',),
         'helper_js': ('++resource++archetypes.querywidget.querywidget.js',
                       '@@datepickerconfig'),

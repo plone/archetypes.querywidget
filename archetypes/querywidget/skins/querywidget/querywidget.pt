@@ -26,15 +26,20 @@
                     <div tal:define="config widget/getConfig;
                          indexes config/indexes;
                          rows python:request.get('query',accessor(raw=True));
-                         parentrows python:accessor(raw=True, parent=True);
+                         show_parent_criteria widget/show_parent_criteria;
+                         parentrows python:accessor(raw=True, parent=True) if show_parent_criteria else [];
+                         show_original_criteria widget/show_original_criteria;
+                         originalrows python:accessor(raw=True) if show_original_criteria else [];
                          sortable_indexes config/sortable_indexes;
                          addindexselected python:request.has_key('addindex') and request.addindex != '';
                          addoperatorselected python:request.has_key('addoperator') and request.addoperator != ''">
 
                         <tal:counter tal:define="dummy python:request.set('querystringwidgetcounter', 0)"/>
                         <label tal:condition="parentrows">Parent criteria</label>
-                        <tal:row repeat="row parentrows">
-                            <div class="parentcriteria"
+                        <tal:row repeat="row parentrows"
+                                 define="klass string:parentcriteria">
+                            <metal:readonly_macro define-macro="readonly">
+                            <div tal:attributes="class klass"
                                  tal:define="widget_name python:indexes[row['i']]['operators'][row['o']]['widget'];">
                                 <span class="parentqueryindex"
                                       tal:content="python:indexes[row['i']]['title']"/>
@@ -91,12 +96,19 @@
                                 </tal:widget>
 
                             </div>
+                            </metal:readonly_macro>
+                        </tal:row>
+
+                        <label tal:condition="originalrows">Original criteria</label>
+                        <tal:row repeat="row originalrows"
+                                 define="klass string:originalcriteria">
+                            <metal:rows use-macro="context/querywidget/macros/readonly" />
                         </tal:row>
 
                         <div />
 
-                        <tal:comment condition="nothing">This label is only needed when there are parent criteria.</tal:comment>
-                        <label tal:condition="parentrows">Normal criteria</label>
+                        <tal:comment condition="nothing">This label is only needed when we show parent or original criteria.</tal:comment>
+                        <label tal:condition="python: parentrows or originalrows">Normal criteria</label>
 
                         <tal:row repeat="row rows">
                             <div class="criteria"
