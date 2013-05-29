@@ -4,6 +4,10 @@ Changelog
 1.0.9 (unreleased)
 ------------------
 
+- Remove disabled indexes from the config, otherwise we needlessly
+  include them in json.
+  [maurits]
+
 - Support showing the original criteria readonly.  This can be handy
   when you have large selection criteria.  ``show_original_criteria``
   in the widget is False by default.

@@ -46,6 +46,7 @@ class QueryWidget(TypesWidget):
 
         # Group indices by "group", order alphabetically
         groupedIndexes = {}
+        disabled = []
         for indexName in config['indexes']:
             index = config['indexes'][indexName]
             if index['enabled']:
@@ -53,6 +54,12 @@ class QueryWidget(TypesWidget):
                 if group not in groupedIndexes:
                     groupedIndexes[group] = []
                 groupedIndexes[group].append((index['title'], indexName))
+            else:
+                disabled.append(indexName)
+        # Remove disabled indexes from the config, otherwise we
+        # needlessly include them in json.
+        for indexName in disabled:
+            del config['indexes'][indexName]
 
         # Sort each index list
         [a.sort() for a in groupedIndexes.values()]
