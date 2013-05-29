@@ -377,7 +377,10 @@
                         .html('')
                 );
             newcriteria.append($.querywidget.createQueryIndex(index));
-            var operator = $.querywidget.createQueryOperator(index,'');
+            // pre-select the first operation.  Note that the
+            // operators are not sorted (a dictionary), but the
+            // operations are sorted (a list).
+            var operator = $.querywidget.createQueryOperator(index, $.querywidget.config.indexes[index].operations[0]);
             newcriteria.append(operator);
             var operatorvalue = $(operator.children()[0]).attr('value');
             newcriteria.append($.querywidget.createWidget($.querywidget.config.indexes[index].operators[operatorvalue].widget, index));

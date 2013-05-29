@@ -4,6 +4,10 @@ Changelog
 1.0.9 (unreleased)
 ------------------
 
+- Pre-select the first operation when adding an operator in the
+  browser.
+  [maurits]
+
 - Remove disabled indexes from the config, otherwise we needlessly
   include them in json.
   [maurits]
