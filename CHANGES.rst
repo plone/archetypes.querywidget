@@ -4,7 +4,9 @@ Changelog
 1.0.9 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix CSS to ensure that multiple selection widgets are accessible and visible
+  to the user.
+  [davidjb]
 
 
 1.0.8 (2013-03-06)
