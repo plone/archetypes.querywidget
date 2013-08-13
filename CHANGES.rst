@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.0.9 (unreleased)
+1.0.9 (2013-08-13)
 ------------------
 
 - Fix CSS to ensure that multiple selection widgets are accessible and visible
