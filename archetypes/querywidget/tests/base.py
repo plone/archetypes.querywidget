@@ -49,9 +49,12 @@ class ArchetypesQueryWidgetLayer(PloneSandboxLayer):
         xmlconfig.file('configure.zcml', plone.app.collection,
                        context=configurationContext)
         z2.installProduct(app, 'plone.app.collection')
+        z2.installProduct(app, 'Products.ATContentTypes')
 
     def setUpPloneSite(self, portal):
         self.registerVocabularies()
+        if 'Document' not in portal.portal_types:
+            applyProfile(portal, 'Products.ATContentTypes:default')
         applyProfile(portal, 'plone.app.collection:default')
         applyProfile(portal, 'archetypes.querywidget:test_fixture')
         portal.acl_users.userFolderAddUser('admin',
