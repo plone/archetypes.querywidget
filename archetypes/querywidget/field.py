@@ -3,6 +3,7 @@ from AccessControl import ClassSecurityInfo
 from archetypes.querywidget.interfaces import IQueryField
 from Products.Archetypes.Field import ObjectField
 from Products.Archetypes.Field import registerField
+from zope.component import getMultiAdapter
 from zope.interface import implements
 from zope.site.hooks import getSite
 from plone.app.querystring.querybuilder import QueryBuilder
@@ -23,7 +24,8 @@ class QueryField(ObjectField):
         if raw == True:
             # We actually wanted the raw value, should have called getRaw
             return value
-        querybuilder = QueryBuilder(instance, getSite().REQUEST)
+        querybuilder = getMultiAdapter((instance, getSite().REQUEST),
+                                       name=u'querybuilderresults')
 
         sort_on = kwargs.get('sort_on', instance.getSort_on())
         sort_order = 'reverse' if instance.getSort_reversed() else 'ascending'
