@@ -13,6 +13,11 @@ class QueryWidget(TypesWidget):
     _properties = TypesWidget._properties.copy()
     _properties.update({
         'macro': 'querywidget',
+        # Show criteria of parent (if applicable) readonly:
+        'show_parent_criteria': True,
+        # Show own original criteria readonly.  Can be handy when you
+        # have large selection criteria:
+        'show_original_criteria': False,
         'helper_css': ('++resource++archetypes.querywidget.querywidget.css',),
         'helper_js': ('++resource++archetypes.querywidget.querywidget.js',
                       '@@datepickerconfig'),
@@ -41,6 +46,7 @@ class QueryWidget(TypesWidget):
 
         # Group indices by "group", order alphabetically
         groupedIndexes = {}
+        disabled = []
         for indexName in config['indexes']:
             index = config['indexes'][indexName]
             if index['enabled']:
@@ -48,6 +54,12 @@ class QueryWidget(TypesWidget):
                 if group not in groupedIndexes:
                     groupedIndexes[group] = []
                 groupedIndexes[group].append((index['title'], indexName))
+            else:
+                disabled.append(indexName)
+        # Remove disabled indexes from the config, otherwise we
+        # needlessly include them in json.
+        for indexName in disabled:
+            del config['indexes'][indexName]
 
         # Sort each index list
         [a.sort() for a in groupedIndexes.values()]

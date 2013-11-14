@@ -10,5 +10,9 @@
              &nbsp;
        </div>
       </metal:widget>
+
+      <metal:widget define-macro="view">
+       <div class="viewqueryvalue">&nbsp;</div>
+      </metal:widget>
     </body>
 </html>

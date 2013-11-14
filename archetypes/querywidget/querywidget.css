@@ -100,6 +100,9 @@ dl.querywidget dd {
 .dateRangeWidget input.queryvalue {
     width: 78px;
 }
-.criteria {
+.criteria .parentcriteria{
     clear: both;
+}
+div.viewqueryvalue {
+    display: inline;
 }

@@ -1,11 +1,12 @@
 from copy import deepcopy
 from AccessControl import ClassSecurityInfo
+from Acquisition import aq_inner, aq_parent
 from archetypes.querywidget.interfaces import IQueryField
 from Products.Archetypes.Field import ObjectField
 from Products.Archetypes.Field import registerField
+from zope.component import getMultiAdapter
 from zope.interface import implements
 from zope.site.hooks import getSite
-from plone.app.querystring.querybuilder import QueryBuilder
 
 
 class QueryField(ObjectField):
@@ -19,11 +20,19 @@ class QueryField(ObjectField):
     def get(self, instance, **kwargs):
         """Get the query dict from the request or from the object"""
         raw = kwargs.get('raw', None)
-        value = self.getRaw(instance)
-        if raw == True:
+        if raw:
             # We actually wanted the raw value, should have called getRaw
+            value = self.getRaw(instance, **kwargs)
             return value
-        querybuilder = QueryBuilder(instance, getSite().REQUEST)
+        # We may want to merge our query with our parent query.  This
+        # is a new addition to Collections, so we are careful.
+        try:
+            recursive = kwargs.get('recursive', instance.getAcquireCriteria())
+        except AttributeError:
+            recursive = False
+        value = self.getRaw(instance, recursive=recursive)
+        querybuilder = getMultiAdapter((instance, getSite().REQUEST),
+                                       name='querybuilderresults')
 
         sort_on = kwargs.get('sort_on', instance.getSort_on())
         sort_order = 'reverse' if instance.getSort_reversed() else 'ascending'
@@ -34,7 +43,77 @@ class QueryField(ObjectField):
             limit=limit, brains=kwargs.get('brains', False))
 
     def getRaw(self, instance, **kwargs):
-        return deepcopy(ObjectField.get(self, instance, **kwargs) or [])
+        parent = kwargs.get('parent', None)
+        if parent:
+            # We want the raw parent value, if it is a good parent
+            value = self._getRawParentValue(instance, **kwargs)
+            return value
+        recursive = kwargs.get('recursive', False)
+        value = deepcopy(ObjectField.get(self, instance, **kwargs) or [])
+        if recursive:
+            parent_value = self._getRawParentValue(instance, **kwargs)
+            if parent_value:
+                for parent_row in parent_value:
+                    parent_index = parent_row['i']
+                    found = False
+                    for own_row in value:
+                        own_index = own_row['i']
+                        if own_index == parent_index:
+                            found = True
+                            break
+                    if not found:
+                        # parent index is not in own index, so we add it
+                        value.append(parent_row)
+
+        return value
+
+    def _getRawParentValue(self, instance, **kwargs):
+        default = []
+        if 'parent' in kwargs:
+            del kwargs['parent']
+
+        # Get the parent, if it is a good parent.
+        parent = aq_parent(aq_inner(instance))
+        if not hasattr(parent, 'portal_type'):
+            # Probably the root PloneSite.
+            return default
+        if parent.portal_type == 'TempFolder':
+            # The instance is being created.
+            # Path is real_parent/portal_factory/temp_folder/collection
+            parent = aq_parent(aq_parent(parent))
+            if not hasattr(parent, 'portal_type'):
+                return default
+        if parent.portal_type != instance.portal_type:
+            return default
+
+        # We may want to get the value of all our ancestors.  This
+        # is a new addition to Collections, so we are careful.
+        try:
+            recursive = kwargs.get('recursive', parent.getAcquireCriteria())
+        except AttributeError:
+            recursive = False
+
+        # The following will return an empty list if the parent
+        # does not have this same field.
+        values = self.getRaw(parent, recursive=recursive)
+        if not values:
+            return default
+        # Check that the values are what we expect, as it may be for
+        # example a BooleanField with the same name.
+        if not isinstance(values, list) and not isinstance(values, tuple):
+            return default
+        for row in values:
+            # A row must have keys i and o.  v is optional.  We do not
+            # expect a dictionary, but an instance, so we cannot check
+            # isinstance(row, dict).
+            try:
+                if not row.get('i'):
+                    return default
+                if not row.get('o'):
+                    return default
+            except AttributeError:
+                return default
+        return values
 
 
 registerField(QueryField, title='QueryField',

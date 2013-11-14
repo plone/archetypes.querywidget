@@ -151,8 +151,10 @@
 
     $.querywidget.updateSearch = function () {
         var base_url = $("base").attr("href");
-        if(base_url.indexOf("portal_factory") != -1) {
-            base_url = base_url.split("/").slice(0, -2).join("/");
+        var in_factory = false;
+        if(base_url.indexOf("/portal_factory") != -1) {
+            base_url = base_url.slice(0, base_url.indexOf('/portal_factory'));
+            in_factory = true;
         }
         var query = base_url + "/@@querybuilder_html_results?";
         var querylist  = [];
@@ -160,6 +162,9 @@
         if (!items.length) {
             return;
         }
+        main_widget = $('.ArchetypesQueryWidget');
+        var fieldname = main_widget.data('fieldname') || '';
+        var acquire = $('#acquireCriteria:checked').length > 0;
         items.each(function () {
             var results = $(this).parents('.criteria').children('.queryresults');
             var index = $(this).val();
@@ -205,12 +210,31 @@
                     break;
             }
             if (querylist.length){
-                $.get(portal_url + '/@@querybuildernumberofresults?' + querylist.join('&'),
+                var query_url = base_url + '/@@querybuildernumberofresults?' + querylist.join('&');
+                if (fieldname) {
+                    query_url += '&fieldname=' + fieldname;
+                }
+                if (in_factory) {
+                    query_url += '&in_factory=1';
+                }
+                if (acquire) {
+                    query_url += '&acquire=1';
+                }
+                $.get(query_url,
                       {},
                       function (data) { results.html(data); });
             }
         });
         query += querylist.join('&');
+        if (fieldname) {
+            query += '&fieldname=' + fieldname;
+        }
+        if (in_factory) {
+            query += '&in_factory=1';
+        }
+        if (acquire) {
+            query += '&acquire=1';
+        }
         query += '&sort_on=' + $('#sort_on').val();
         if ($('#sort_order:checked').length > 0) {
             query += '&sort_order=reverse';
@@ -278,13 +302,14 @@
         });
 
         /* Clicking outside a multipleSelectionWidget will close all open
-           multipleSelectionWidgets */
+           multipleSelectionWidgets except for their headers (dt) */
         $(window).click(function(event){
             if ($(event.target).parents('.multipleSelectionWidget').length) {
                 return;
             }
 
             $('.multipleSelectionWidget dd').hide();
+            $('.multipleSelectionWidget dt').show();
         });
 
         $('.queryindex').live('change', function () {
@@ -312,7 +337,7 @@
             $.querywidget.updateSearch();
         });
 
-        $('#sort_on,#sort_order').live('change', function () {
+        $('#sort_on,#sort_order,#acquireCriteria').live('change', function () {
             $.querywidget.updateSearch();
         });
 
@@ -352,7 +377,10 @@
                         .html('')
                 );
             newcriteria.append($.querywidget.createQueryIndex(index));
-            var operator = $.querywidget.createQueryOperator(index,'');
+            // pre-select the first operation.  Note that the
+            // operators are not sorted (a dictionary), but the
+            // operations are sorted (a list).
+            var operator = $.querywidget.createQueryOperator(index, $.querywidget.config.indexes[index].operations[0]);
             newcriteria.append(operator);
             var operatorvalue = $(operator.children()[0]).attr('value');
             newcriteria.append($.querywidget.createWidget($.querywidget.config.indexes[index].operators[operatorvalue].widget, index));

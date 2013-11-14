@@ -4,7 +4,32 @@ Changelog
 1.0.10 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Pre-select the first operation when adding an operator in the
+  browser.
+  [maurits]
+
+- Remove disabled indexes from the config, otherwise we needlessly
+  include them in json.
+  [maurits]
+
+- Support showing the original criteria readonly.  This can be handy
+  when you have large selection criteria.  ``show_original_criteria``
+  in the widget is False by default.
+  [maurits]
+
+- Added widget property ``show_parent_criteria``, which is True by
+  default.  This shows the parent criteria readonly in the edit form.
+  [maurits]
+
+- When getting the results, get the ``querybuilderresults`` multi
+  adapter, instead of hardcoding the use of the standard
+  ``QueryBuilder`` from ``plone.app.querystring``.  This way, add-ons
+  can override the default behavior.
+  [maurits]
+
+- Support recursive fields by default, merging the value of the parent
+  in the query.
+  [maurits]
 
 
 1.0.9 (2013-08-13)

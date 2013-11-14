@@ -31,6 +31,20 @@
                 </dd>
             </dl>
         </metal:widget>
+
+        <metal:widget define-macro="view"
+            tal:define="fieldName fieldName|string:query;
+                        index index|nothing;
+                        widget_view nocall:context/@@archetypes-querywidget-multipleselectionwidget;
+                        values potential_values|python:widget_view.getValues(index);
+                        sorted_values_keys python:widget_view.getSortedValuesKeys(values);
+                        value value|nothing;
+                        value_titles python:[values[index]['title'] for index in sorted_values_keys if value and index in value];
+                        display_value python: ', '.join(value_titles);">
+
+            <div class="viewqueryvalue" tal:content="display_value" />
+
+        </metal:widget>
     </body>
 </html>
 
