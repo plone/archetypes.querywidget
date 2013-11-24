@@ -4,8 +4,9 @@ Changelog
 1.0.10 (unreleased)
 -------------------
 
-- Nothing changed yet.
-
+- ``QueryBuilder`` instance is now obtained using ZCA, so other add-ons
+  will be able to customize it
+  [keul, cekk]
 
 1.0.9 (2013-08-13)
 ------------------
