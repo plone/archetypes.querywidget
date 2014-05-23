@@ -28,14 +28,8 @@ module("querywidget", {
     }
 });
 
-test("Initialisation", function() {
+test("Initialisation", function () {
     expect(1);
 
     ok($.querywidget, "$.querywidget");
-});
-
-test("Dummy", function() {
-    expect(1);
-
-    equals(1, 1);
 });

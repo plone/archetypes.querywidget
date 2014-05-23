@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-version = '1.0.11.dev0'
+version = '1.1.dev0'
 
 tests_require = ['plone.app.testing']
 
@@ -26,6 +26,7 @@ setup(name='archetypes.querywidget',
       install_requires=[
           'setuptools',
           'plone.app.querystring>=1.0.3dev',
+          'plone.app.jquery>=1.7.2'
           'plone.app.jquerytools',
       ],
       tests_require = tests_require,
