@@ -21,7 +21,7 @@
                                 .attr('value', i)
                                 .html(val.title);
                 if (i === selectedvalue) {
-                    option.attr('selected', 'selected');
+                    option.prop('selected', 'selected');
                 }
                 if (typeof(val.group) !== "undefined") {
                     var optgroup = select.find("optgroup[label=" + val.group + "]");
@@ -273,7 +273,7 @@
             });
         });
 
-        $('.multipleSelectionWidget dt').live('click', function () {
+        $('.multipleSelectionWidget dt').on('click', function () {
             $(this).parent().children('dd').toggle();
         });
 
@@ -287,7 +287,7 @@
             $('.multipleSelectionWidget dd').hide();
         });
 
-        $('.queryindex').live('change', function () {
+        $(document).on('change', '.queryindex', function () {
             var index = $(this).find(':selected')[0].value;
             $(this).parents(".criteria").children('.queryoperator')
                 .replaceWith($.querywidget.createQueryOperator(index, ''));
@@ -301,7 +301,7 @@
 
         });
 
-        $('.queryoperator').live('change', function () {
+        $(document).on('change', '.queryoperator', function () {
             var index = $(this).parents('.criteria').children('.queryindex').val();
             var operatorvalue = $(this).children(':selected')[0].value;
             var widget = $.querywidget.config.indexes[index].operators[operatorvalue].widget;
@@ -312,11 +312,11 @@
             $.querywidget.updateSearch();
         });
 
-        $('#sort_on,#sort_order').live('change', function () {
+        $(document).on('change', '#sort_on, #sort_order', function () {
             $.querywidget.updateSearch();
         });
 
-        $('.multipleSelectionWidget input').live('change', function () {
+        $(document).on('change', '.multipleSelectionWidget input', function () {
             var widget = $(this).parents('.multipleSelectionWidget');
             var selected_values = [];
             widget.find('input:checked').each(function () {
@@ -328,19 +328,19 @@
             $.querywidget.updateSearch();
         });
 
-        $('.queryvalue').live('keyup', function (e) {
+        $(document).on('keyup', '.queryvalue', function (e) {
             if ($.querywidget.shouldUpdate(this, e)) {
                 $.querywidget.updateSearch();
             }
         });
 
-        $('.queryvalue').live('keydown', function (e) {
+        $(document).on('keydown', '.queryvalue', function (e) {
             if (e.keyCode === 13) {
                 return false;
             }
         });
 
-        $('.addIndex').live('change', function () {
+        $(document).on('change', '.addIndex', function () {
             var index = $(this).find(':selected')[0].value;
             var criteria = $(this).parents('.criteria');
             var newcriteria = $(document.createElement('div'))
@@ -365,7 +365,7 @@
             $.querywidget.updateSearch();
         });
 
-        $('.removecriteria').live('click', function () {
+        $(document).on('click', '.removecriteria', function () {
             $(this).parents('.criteria').remove();
             $.querywidget.updateSearch();
             return false;

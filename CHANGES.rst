@@ -1,10 +1,11 @@
 Changelog
 =========
 
-1.0.11 (unreleased)
--------------------
+1.1 (unreleased)
+----------------
 
-- Nothing changed yet.
+- Support for jQuery 1.7+, including 1.9. Drop support for jQuery 1.4.
+  [thet]
 
 
 1.0.10 (2014-01-27)
