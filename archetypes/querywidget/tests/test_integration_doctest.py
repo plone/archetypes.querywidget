@@ -13,4 +13,4 @@ def test_suite():
             'tests/integration.rst', package='archetypes.querywidget',
             test_class=base.ArchetypesQueryWidgetTestCase,
             optionflags=doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS),
-        ])
+    ])

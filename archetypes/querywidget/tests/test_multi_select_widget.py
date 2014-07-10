@@ -16,8 +16,9 @@ class BrowserLayerTest(unittest.TestCase):
         self.request = self.layer['request']
 
     def test_sorted_values(self):
-        view = getMultiAdapter((self.portal.collection, self.request),
-                        name="archetypes-querywidget-multipleselectionwidget")
+        view = getMultiAdapter((
+            self.portal.collection, self.request),
+            name="archetypes-querywidget-multipleselectionwidget")
 
         string_values = view.getValues(index='string')
         integer_values = view.getValues(index='integer')
