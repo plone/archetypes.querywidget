@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.1 (unreleased)
+1.1 (2014-07-10)
 ----------------
 
 - Support for jQuery 1.7+, including 1.9. Drop support for jQuery 1.4.
