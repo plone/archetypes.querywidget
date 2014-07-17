@@ -6,14 +6,16 @@ tests_require = ['plone.app.testing']
 
 setup(name='archetypes.querywidget',
       version=version,
-      description="",
-      long_description=open("README.rst").read() + "\n" +
-                       open("CHANGES.rst").read(),
+      description=("Archetypes.querywidget implements a widget "
+                   "for creating catalog queries using an "
+                   "email-filtering-like interface, as found "
+                   "in GMail or Apple Mail."),
+      long_description=open("README.rst").read() + "\n" + open(
+          "CHANGES.rst").read(),
       classifiers=[
-        "Framework :: Plone",
-        "License :: OSI Approved :: GNU General Public License (GPL)",
-        "Programming Language :: Python",
-        ],
+          "Framework :: Plone",
+          "License :: OSI Approved :: GNU General Public License (GPL)",
+          "Programming Language :: Python", ],
       keywords='',
       author='Plone Foundation',
       author_email='plone-developers@lists.sourceforge.net',
@@ -29,12 +31,12 @@ setup(name='archetypes.querywidget',
           'plone.app.jquery>=1.7.2',
           'plone.app.jquerytools',
       ],
-      tests_require = tests_require,
-      extras_require = {
+      tests_require=tests_require,
+      extras_require={
           'tests': tests_require,
       },
       entry_points="""
       [z3c.autoinclude.plugin]
-      target = plone
+      target=plone
       """,
       )
