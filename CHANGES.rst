@@ -4,7 +4,9 @@ Changelog
 1.1.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add a ``custom_query`` parameter to ``QueryField.get`` method, which allows
+  for run time customization of the stored query, e.g. by request parameters.
+  [thet]
 
 
 1.1 (2014-07-10)

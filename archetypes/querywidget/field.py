@@ -6,7 +6,6 @@ from Products.Archetypes.Field import registerField
 from zope.component import getMultiAdapter
 from zope.interface import implements
 from zope.site.hooks import getSite
-from plone.app.querystring.querybuilder import QueryBuilder
 
 
 class QueryField(ObjectField):
@@ -34,7 +33,8 @@ class QueryField(ObjectField):
                             b_start=kwargs.get('b_start', 0),
                             b_size=kwargs.get('b_size', 30),
                             sort_on=sort_on, sort_order=sort_order,
-                            limit=limit, brains=kwargs.get('brains', False))
+                            limit=limit, brains=kwargs.get('brains', False),
+                            custom_query=kwargs.get('custom_query', {}))
 
     def getRaw(self, instance, **kwargs):
         return deepcopy(ObjectField.get(self, instance, **kwargs) or [])
