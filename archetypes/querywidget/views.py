@@ -29,6 +29,9 @@ jQuery.tools.dateinput.localize("%(language)s", {
 jQuery.tools.dateinput.conf.lang = "%(language)s";
 jQuery.tools.dateinput.conf.format = "mm/dd/yyyy";
         """
+        self.request.response.setHeader(
+            'Content-Type', 'application/javascript; charset=utf-8')
+
         return template % (dict(language=language,
                                 monthnames=','.join(calendar.getMonthNames()),
                                 shortmonths=','.join(calendar.getMonthAbbreviations()),

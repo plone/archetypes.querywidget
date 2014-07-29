@@ -4,6 +4,10 @@ Changelog
 1.1.1 (unreleased)
 ------------------
 
+- Declare the correcty ``application/javascript`` contenttype for the
+  ``@@datepickerconfig`` view.
+  [thet]
+
 - Add a ``custom_query`` parameter to ``QueryField.get`` method, which allows
   for run time customization of the stored query, e.g. by request parameters.
   [thet]
