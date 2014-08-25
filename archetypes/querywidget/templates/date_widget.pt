@@ -10,7 +10,7 @@
          				      value value|nothing">
 
          <div class="querywidget dateWidget">
-            <input autocomplete="off" 
+            <input autocomplete="off"
             	   type="string"
             	   class="queryvalue"
             	   tal:attributes="name python:str(fieldName)+'.v:records';

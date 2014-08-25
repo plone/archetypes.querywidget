@@ -39,12 +39,12 @@ Check for bug `#13144 <https://dev.plone.org/ticket/13144>`_::
     >>> raw1 = field.get(portal.collection, raw=True)
     >>> raw1
     [{'i': 'start', 'o': 'some.namespace.op.foo'}]
-    
+
     >>> length1 = len(raw1)
     >>> raw1.append({'i': 'end', 'o': 'some.namespace.op.bar'})
     >>> raw2 = field.get(portal.collection, raw=True)
 
-Now the amount of entries in raw2 has to be the same as in raw1::    
-    
+Now the amount of entries in raw2 has to be the same as in raw1::
+
     >>> length1 == len(raw2)
     True

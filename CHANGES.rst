@@ -55,10 +55,10 @@ Changelog
 - Fixed link path reference of querywidget.js for the qunit tests
   [ichimdav]
 
-- Improved multiselection widget readability by sorting its returned values 
+- Improved multiselection widget readability by sorting its returned values
   [ichimdav]
 
-- Fixed overly long selection lists by displaying scrollbars for multiselection 
+- Fixed overly long selection lists by displaying scrollbars for multiselection
   widgets
   [ichimdav]
 
@@ -69,7 +69,7 @@ Changelog
 1.0.5 (2012-09-08)
 ------------------
 
-- fixed http://dev.plone.org/ticket/13144 raw get returns persistent 
+- fixed http://dev.plone.org/ticket/13144 raw get returns persistent
   querystring on .get(context, raw=True)
   [jensens]
 
