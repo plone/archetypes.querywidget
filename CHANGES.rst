@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.1.1 (unreleased)
+1.1.1 (2014-09-07)
 ------------------
 
 - Declare the correcty ``application/javascript`` contenttype for the
