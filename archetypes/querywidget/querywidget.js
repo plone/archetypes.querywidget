@@ -221,7 +221,7 @@
         if ($('#sort_order:checked').length > 0) {
             query += '&sort_order=reverse';
         }
-        $.get(query, {cache: false}, function (data) { $('.ArchetypesQueryWidget .previewresults').html(data); });
+        $.get(query, {}, function (data) { $('.ArchetypesQueryWidget .previewresults').html(data); });
     };
 
     // Enhance for javascript browsers
