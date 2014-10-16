@@ -93,7 +93,8 @@
                 wrapper.load(portal_url + '/@@archetypes-querywidget-relativepathwidget');
                 break;
             case 'SelectionWidget':
-                wrapper.load(portal_url + '/@@archetypes-querywidget-selectionwidget');
+                wrapper.load(portal_url + '/@@archetypes-querywidget-selectionwidget',
+                             {'index': index});
                 break;
             case 'MultipleSelectionWidget':
                 wrapper.load(portal_url + '/@@archetypes-querywidget-multipleselectionwidget',
@@ -128,6 +129,8 @@
         var querywidget = criteria.children('.querywidget');
         var widgetname = $.querywidget.config.indexes[index].operators[operator].widget;
         switch (widgetname) {
+            case 'SelectionWidget':
+                return true;
             case 'MultipleSelectionWidget':
                 return true;
             case 'DateRangeWidget':
@@ -218,7 +221,7 @@
         if ($('#sort_order:checked').length > 0) {
             query += '&sort_order=reverse';
         }
-        $.get(query, {}, function (data) { $('.ArchetypesQueryWidget .previewresults').html(data); });
+        $.get(query, {cache: false}, function (data) { $('.ArchetypesQueryWidget .previewresults').html(data); });
     };
 
     // Enhance for javascript browsers
@@ -332,6 +335,12 @@
         });
 
         $(document).on('keyup', '.queryvalue', function (e) {
+            if ($.querywidget.shouldUpdate(this, e)) {
+                $.querywidget.updateSearch();
+            }
+        });
+
+        $(document).on('change', '.selectionWidget', function (e) {
             if ($.querywidget.shouldUpdate(this, e)) {
                 $.querywidget.updateSearch();
             }

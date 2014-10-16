@@ -8,11 +8,12 @@
          <metal:widget define-macro="widget"
             tal:define="fieldName fieldName|string:query;
                         index index|nothing;
-                        widget_view nocall:context/@@archetypes-querywidget-multipleselectionwidget;
+                        widget_view nocall:context/@@archetypes-querywidget-selectionwidget;
                         values potential_values|python:widget_view.getValues(index);
                         sorted_values_keys python:widget_view.getSortedValuesKeys(values);
                         value value|nothing">
-                <select name="query.v:records">
+                <select class="querywidget queryvalue selectionWidget" tal:attributes="name python:str(fieldName)+'.v:records';">
+                    <option value="" i18n:translate="">Select&hellip;</option>
                     <tal:values repeat="index sorted_values_keys">
                         <option tal:attributes="value index;
                                                 selected python: (value and index == value) and 'selected' or None"
