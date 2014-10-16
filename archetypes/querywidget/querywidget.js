@@ -92,6 +92,9 @@
             case 'RelativePathWidget':
                 wrapper.load(portal_url + '/@@archetypes-querywidget-relativepathwidget');
                 break;
+            case 'SelectionWidget':
+                wrapper.load(portal_url + '/@@archetypes-querywidget-selectionwidget');
+                break;
             case 'MultipleSelectionWidget':
                 wrapper.load(portal_url + '/@@archetypes-querywidget-multipleselectionwidget',
                             {'index': index});
