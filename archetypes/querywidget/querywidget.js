@@ -92,6 +92,10 @@
             case 'RelativePathWidget':
                 wrapper.load(portal_url + '/@@archetypes-querywidget-relativepathwidget');
                 break;
+            case 'SelectionWidget':
+                wrapper.load(portal_url + '/@@archetypes-querywidget-selectionwidget',
+                             {'index': index});
+                break;
             case 'MultipleSelectionWidget':
                 wrapper.load(portal_url + '/@@archetypes-querywidget-multipleselectionwidget',
                             {'index': index});
@@ -125,6 +129,8 @@
         var querywidget = criteria.children('.querywidget');
         var widgetname = $.querywidget.config.indexes[index].operators[operator].widget;
         switch (widgetname) {
+            case 'SelectionWidget':
+                return true;
             case 'MultipleSelectionWidget':
                 return true;
             case 'DateRangeWidget':
@@ -329,6 +335,12 @@
         });
 
         $(document).on('keyup', '.queryvalue', function (e) {
+            if ($.querywidget.shouldUpdate(this, e)) {
+                $.querywidget.updateSearch();
+            }
+        });
+
+        $(document).on('change', '.selectionWidget', function (e) {
             if ($.querywidget.shouldUpdate(this, e)) {
                 $.querywidget.updateSearch();
             }

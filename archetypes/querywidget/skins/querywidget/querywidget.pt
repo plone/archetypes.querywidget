@@ -54,6 +54,13 @@
                                      </tal:value>
                                 </tal:widget>
 
+                                <tal:widget tal:condition="python:widget_name == 'SelectionWidget'">
+                                     <tal:value tal:define="value python:row.get('v');
+                                                            index python:row['i'];">
+                                        <metal:field use-macro="context/@@archetypes-querywidget-selectionwidget/macros/widget" />
+                                     </tal:value>
+                                </tal:widget>
+
                                 <tal:widget tal:condition="python:widget_name == 'MultipleSelectionWidget'">
                                      <tal:value tal:define="value python:row.get('v');
                                                             index python:row['i'];">
@@ -120,6 +127,13 @@
                                 <tal:widget tal:condition="python:widget_name == 'StringWidget'">
                                      <tal:value tal:define="value nothing">
                                          <metal:field use-macro="context/@@archetypes-querywidget-stringwidget/macros/widget" />
+                                     </tal:value>
+                                </tal:widget>
+
+                                <tal:widget tal:condition="python:widget_name == 'SelectionWidget'">
+                                     <tal:value tal:define="value nothing;
+                                                    potential_values python:indexes[request.form['addindex']]['values']">
+                                        <metal:field use-macro="context/@@archetypes-querywidget-selectionwidget/macros/widget" />
                                      </tal:value>
                                 </tal:widget>
 

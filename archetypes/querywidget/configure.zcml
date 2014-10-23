@@ -88,6 +88,15 @@
       />
 
   <browser:page
+      name="archetypes-querywidget-selectionwidget"
+      permission="zope2.View"
+      for="*"
+      template="templates/selection_widget.pt"
+      class=".views.SelectWidget"
+      allowed_attributes="macros"
+      />
+
+  <browser:page
       name="archetypes-querywidget-multipleselectionwidget"
       permission="zope2.View"
       for="*"

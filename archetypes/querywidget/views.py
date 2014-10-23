@@ -84,3 +84,19 @@ class MultiSelectWidget(WidgetTraverse):
     def getSortedValuesKeys(self, values):
         # do a lowercase sort of the keys
         return sorted(values.iterkeys(), key=sortable_value)
+
+
+class SelectWidget(MultiSelectWidget):
+
+    def getValues(self, index=None):
+        config = self.getConfig()
+        if not index:
+            index = self.request.form.get('index')
+        values = None
+        if index is not None:
+            values = config['indexes'][index]['values']
+        return values
+
+    def getSortedValuesKeys(self, values):
+        # do a lowercase sort of the keys
+        return sorted(values.iterkeys(), key=sortable_value)
