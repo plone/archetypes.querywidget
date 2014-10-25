@@ -4,7 +4,7 @@ Changelog
 1.1.2 (unreleased)
 ------------------
 
-- Added 'SelectWidget', a single selection widget.
+- Added 'SelectionWidget', a single selection widget.
   [gbastien]
 
 
