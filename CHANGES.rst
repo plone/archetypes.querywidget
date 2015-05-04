@@ -4,7 +4,8 @@ Changelog
 1.1.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Added 'safe_unicode' call for raw query values.
+  [rodfersou]
 
 
 1.1.2 (2014-11-05)
