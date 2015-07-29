@@ -12,10 +12,10 @@
                 <input type="text"
                        autocomplete="off"
                        class="queryvalue"
-                       tal:attributes="name python:str(fieldName)+'.v:records'; 
+                       tal:attributes="name python:str(fieldName)+'.v:records';
                                        value value|nothing;"
-                       
-                       /> 
+
+                       />
                  <span i18n:translate="">days</span>
                 </div>
     </metal:widget>

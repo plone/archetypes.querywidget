@@ -18,14 +18,14 @@
                  tal:attributes="name python:str(fieldName)+'.v:records:list';
                                  value start_date;"
                  name="query.v:records:list"/>
-          
+
           <span  i18n:translate="">and</span>
 
-          <input autocomplete="off" 
+          <input autocomplete="off"
                  type="text"
                  class="queryvalue"
                  tal:attributes="name python:str(fieldName)+'.v:records:list';
-                                 value end_date;" 
+                                 value end_date;"
                  name="query.v:records:list"/>
           </div>
         </metal:widget>

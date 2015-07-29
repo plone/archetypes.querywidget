@@ -21,11 +21,12 @@ class QueryWidget(TypesWidget):
         'helper_css': ('++resource++archetypes.querywidget.querywidget.css',),
         'helper_js': ('++resource++archetypes.querywidget.querywidget.js',
                       '@@datepickerconfig'),
-        }),
+    }),
 
     security = ClassSecurityInfo()
 
     security.declarePublic('process_form')
+
     def process_form(self, instance, field, form, empty_marker=None,
                      emptyReturnsMarker=False, validating=True):
         """A custom implementation for the widget form processing."""
@@ -71,11 +72,11 @@ class QueryWidget(TypesWidget):
         """search results"""
         options = dict(original_context=context)
         return getMultiAdapter((accessor(), request),
-            name='display_query_results')(**options)
+                               name='display_query_results')(**options)
 
 
 registerWidget(QueryWidget, title='Query',
-    description=('Field for storing a query'),
-    used_for=('archetypes.querywidget.QueryField',))
+               description=('Field for storing a query'),
+               used_for=('archetypes.querywidget.QueryField',))
 
 __all__ = ('QueryWidget', )

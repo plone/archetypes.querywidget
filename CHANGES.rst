@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.0.9 (unreleased)
+1.1.3 (unreleased)
 ------------------
 
 - Pre-select the first operation when adding an operator in the
@@ -32,6 +32,47 @@ Changelog
   [maurits]
 
 
+1.1.2 (2014-11-05)
+------------------
+
+- Added 'SelectionWidget', a single selection widget.
+  [gbastien]
+
+
+1.1.1 (2014-09-07)
+------------------
+
+- Declare the correcty ``application/javascript`` contenttype for the
+  ``@@datepickerconfig`` view.
+  [thet]
+
+- Add a ``custom_query`` parameter to ``QueryField.get`` method, which allows
+  for run time customization of the stored query, e.g. by request parameters.
+  [thet]
+
+
+1.1 (2014-07-10)
+----------------
+
+- Support for jQuery 1.7+, including 1.9. Drop support for jQuery 1.4.
+  [thet]
+
+
+1.0.10 (2014-01-27)
+-------------------
+
+- ``QueryBuilder`` instance is now obtained using ZCA, so other add-ons
+  will be able to customize it
+  [keul, cekk]
+
+1.0.9 (2013-08-13)
+------------------
+
+- Fix CSS to ensure that multiple selection widgets are accessible and visible
+  to the user.
+  [davidjb]
+
+
 1.0.8 (2013-03-06)
 ------------------
 
@@ -52,10 +93,10 @@ Changelog
 - Fixed link path reference of querywidget.js for the qunit tests
   [ichimdav]
 
-- Improved multiselection widget readability by sorting its returned values 
+- Improved multiselection widget readability by sorting its returned values
   [ichimdav]
 
-- Fixed overly long selection lists by displaying scrollbars for multiselection 
+- Fixed overly long selection lists by displaying scrollbars for multiselection
   widgets
   [ichimdav]
 
@@ -66,7 +107,7 @@ Changelog
 1.0.5 (2012-09-08)
 ------------------
 
-- fixed http://dev.plone.org/ticket/13144 raw get returns persistent 
+- fixed http://dev.plone.org/ticket/13144 raw get returns persistent
   querystring on .get(context, raw=True)
   [jensens]
 

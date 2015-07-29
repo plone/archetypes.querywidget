@@ -17,18 +17,19 @@ from zope.schema.vocabulary import SimpleVocabulary
 class StringVocab(object):
     def __call__(self, context):
         return SimpleVocabulary([
-                    SimpleTerm(value='b', title=u'Second'),
-                    SimpleTerm(value='c', title=u'Third'),
-                    SimpleTerm(value='a', title=u'First'),
-                ])
+            SimpleTerm(value='b', title=u'Second'),
+            SimpleTerm(value='c', title=u'Third'),
+            SimpleTerm(value='a', title=u'First'),
+        ])
+
 
 class IntVocab(object):
     def __call__(self, context):
         return SimpleVocabulary([
-                    SimpleTerm(value=2, title=u'Second'),
-                    SimpleTerm(value=3, title=u'Third'),
-                    SimpleTerm(value=1, title=u'First'),
-                ])
+            SimpleTerm(value=2, title=u'Second'),
+            SimpleTerm(value=3, title=u'Third'),
+            SimpleTerm(value=1, title=u'First'),
+        ])
 INT_VOCAB = IntVocab()
 STR_VOCAB = StringVocab()
 
@@ -50,9 +51,12 @@ class ArchetypesQueryWidgetLayer(PloneSandboxLayer):
         xmlconfig.file('configure.zcml', plone.app.collection,
                        context=configurationContext)
         z2.installProduct(app, 'plone.app.collection')
+        z2.installProduct(app, 'Products.ATContentTypes')
 
     def setUpPloneSite(self, portal):
         self.registerVocabularies()
+        if 'Document' not in portal.portal_types:
+            applyProfile(portal, 'Products.ATContentTypes:default')
         applyProfile(portal, 'plone.app.collection:default')
         applyProfile(portal, 'archetypes.querywidget:test_fixture')
         portal.acl_users.userFolderAddUser('admin',
@@ -91,9 +95,9 @@ class ArchetypesQueryWidgetLayer(PloneSandboxLayer):
 
 QUERYWIDGET_FIXTURE = ArchetypesQueryWidgetLayer()
 
-QUERYWIDGET_INTEGRATION_TESTING =\
-                IntegrationTesting(bases=(QUERYWIDGET_FIXTURE,),
-                name="ArchetypesQueryWidget:Integration")
+QUERYWIDGET_INTEGRATION_TESTING = IntegrationTesting(
+    bases=(QUERYWIDGET_FIXTURE,),
+    name="ArchetypesQueryWidget:Integration")
 
 
 class ArchetypesQueryWidgetTestCase(unittest.TestCase):

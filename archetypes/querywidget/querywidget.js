@@ -1,7 +1,7 @@
-;(function($) {
+;(function ($) {
 
     // Define querywidget namespace if it doesn't exist
-    if (typeof($.querywidget) == "undefined") {
+    if (typeof($.querywidget) === "undefined") {
         $.querywidget = {
             config: {},
             initialized: false
@@ -16,16 +16,16 @@
                             .addClass(className)
                             .attr('name', name);
         $.each(values, function (i, val) {
-            if ((typeof(val.enabled) == "undefined") || (val.enabled)) {
+            if ((typeof(val.enabled) === "undefined") || (val.enabled)) {
                 var option = $(document.createElement('option'))
                                 .attr('value', i)
                                 .html(val.title);
-                if (i == selectedvalue) {
-                    option.attr('selected', 'selected');
+                if (i === selectedvalue) {
+                    option.prop('selected', 'selected');
                 }
-                if (typeof(val.group) != "undefined") {
+                if (typeof(val.group) !== "undefined") {
                     var optgroup = select.find("optgroup[label=" + val.group + "]");
-                    if (optgroup.length == 0) {
+                    if (optgroup.length === 0) {
                         optgroup = $(document.createElement('optgroup'))
                                     .attr('label', val.group);
                         optgroup.append(option);
@@ -68,20 +68,20 @@
                 break;
             case 'DateWidget':
                 wrapper.load(portal_url + '/@@archetypes-querywidget-datewidget',
-                    function(){
+                    function () {
                         $(this).find('input')
                             .dateinput().removeClass('date')
-                            .change(function(e){
+                            .change(function (e) {
                                 $.querywidget.updateSearch();
                             });
                     });
                 break;
             case 'DateRangeWidget':
                 wrapper.load(portal_url + '/@@archetypes-querywidget-daterangewidget',
-                    function(){
+                    function () {
                         $(this).find('input')
                             .dateinput().removeClass('date')
-                            .change(function(e){
+                            .change(function (e) {
                                 $.querywidget.updateSearch();
                             });
                     });
@@ -91,6 +91,10 @@
                 break;
             case 'RelativePathWidget':
                 wrapper.load(portal_url + '/@@archetypes-querywidget-relativepathwidget');
+                break;
+            case 'SelectionWidget':
+                wrapper.load(portal_url + '/@@archetypes-querywidget-selectionwidget',
+                             {'index': index});
                 break;
             case 'MultipleSelectionWidget':
                 wrapper.load(portal_url + '/@@archetypes-querywidget-multipleselectionwidget',
@@ -109,15 +113,15 @@
         }
         var classes = node.attr('class').split(' ');
         for (var i in classes) {
-            if (classes[i].indexOf('Widget') != -1) {
+            if (classes[i].indexOf('Widget') !== -1) {
                 var classname = classes[i];
-                return classname.slice(0,1).toUpperCase() + classname.slice(1);
+                return classname.slice(0, 1).toUpperCase() + classname.slice(1);
             }
         }
     };
 
     /* Should livesearch update, looking at the last changed element? */
-    $.querywidget.shouldUpdate = function(node, e) {
+    $.querywidget.shouldUpdate = function (node, e) {
         var criteria = $(node).parents('.criteria');
         var operator = criteria.children('.queryoperator').val();
         var values = criteria.children('.queryvalue');
@@ -125,6 +129,8 @@
         var querywidget = criteria.children('.querywidget');
         var widgetname = $.querywidget.config.indexes[index].operators[operator].widget;
         switch (widgetname) {
+            case 'SelectionWidget':
+                return true;
             case 'MultipleSelectionWidget':
                 return true;
             case 'DateRangeWidget':
@@ -137,7 +143,7 @@
                 return true;
             default:
                 /* Backspace and delete should force update */
-                if (e.keyCode == 8 || e.keyCode == 46) {
+                if (e.keyCode === 8 || e.keyCode === 46) {
                     return true;
                 }
 
@@ -152,7 +158,7 @@
     $.querywidget.updateSearch = function () {
         var base_url = $("base").attr("href");
         var in_factory = false;
-        if(base_url.indexOf("/portal_factory") != -1) {
+        if (base_url.indexOf("/portal_factory") !== -1) {
             base_url = base_url.slice(0, base_url.indexOf('/portal_factory'));
             in_factory = true;
         }
@@ -209,7 +215,7 @@
                     querylist.push(push_string);
                     break;
             }
-            if (querylist.length){
+            if (querylist.length) {
                 var query_url = base_url + '/@@querybuildernumberofresults?' + querylist.join('&');
                 if (fieldname) {
                     query_url += '&fieldname=' + fieldname;
@@ -246,7 +252,7 @@
     $(document).ready(function () {
 
         // Check if ArchetypesQueryWidget exists on page
-        if ($(".ArchetypesQueryWidget").length != 0) {
+        if ($(".ArchetypesQueryWidget").length !== 0) {
             // Init
             $.querywidget.init();
         }
@@ -257,7 +263,7 @@
     $.querywidget.init = function () {
 
         // Check if already initialized
-        if ($.querywidget.initialized == true) {
+        if ($.querywidget.initialized === true) {
 
             // Return nothing done
             return false;
@@ -297,13 +303,13 @@
             });
         });
 
-        $('.multipleSelectionWidget dt').live('click', function () {
+        $('.multipleSelectionWidget dt').on('click', function () {
             $(this).parent().children('dd').toggle();
         });
 
         /* Clicking outside a multipleSelectionWidget will close all open
-           multipleSelectionWidgets except for their headers (dt) */
-        $(window).click(function(event){
+           multipleSelectionWidgets */
+        $(window).click(function (event) {
             if ($(event.target).parents('.multipleSelectionWidget').length) {
                 return;
             }
@@ -312,36 +318,36 @@
             $('.multipleSelectionWidget dt').show();
         });
 
-        $('.queryindex').live('change', function () {
+        $(document).on('change', '.queryindex', function () {
             var index = $(this).find(':selected')[0].value;
             $(this).parents(".criteria").children('.queryoperator')
                 .replaceWith($.querywidget.createQueryOperator(index, ''));
             var operatorvalue = $(this).parents('.criteria').children('.queryoperator').val();
             var widget = $.querywidget.config.indexes[index].operators[operatorvalue].widget;
             var querywidget = $(this).parent(".criteria").find('.querywidget');
-            if ((widget != $.querywidget.getCurrentWidget(querywidget)) || (widget == 'MultipleSelectionWidget')) {
+            if ((widget !== $.querywidget.getCurrentWidget(querywidget)) || (widget === 'MultipleSelectionWidget')) {
                 querywidget.replaceWith($.querywidget.createWidget(widget, index));
             }
             $.querywidget.updateSearch();
 
         });
 
-        $('.queryoperator').live('change', function () {
+        $(document).on('change', '.queryoperator', function () {
             var index = $(this).parents('.criteria').children('.queryindex').val();
             var operatorvalue = $(this).children(':selected')[0].value;
             var widget = $.querywidget.config.indexes[index].operators[operatorvalue].widget;
             var querywidget = $(this).parent().find('.querywidget');
-            if (widget != $.querywidget.getCurrentWidget(querywidget)) {
+            if (widget !== $.querywidget.getCurrentWidget(querywidget)) {
                 querywidget.replaceWith($.querywidget.createWidget(widget, index));
             }
             $.querywidget.updateSearch();
         });
 
-        $('#sort_on,#sort_order,#acquireCriteria').live('change', function () {
+        $(document).on('change', '#sort_on, #sort_order, #acquireCriteria', function () {
             $.querywidget.updateSearch();
         });
 
-        $('.multipleSelectionWidget input').live('change', function () {
+        $(document).on('change', '.multipleSelectionWidget input', function () {
             var widget = $(this).parents('.multipleSelectionWidget');
             var selected_values = [];
             widget.find('input:checked').each(function () {
@@ -353,19 +359,25 @@
             $.querywidget.updateSearch();
         });
 
-        $('.queryvalue').live('keyup', function (e) {
+        $(document).on('keyup', '.queryvalue', function (e) {
             if ($.querywidget.shouldUpdate(this, e)) {
                 $.querywidget.updateSearch();
             }
         });
 
-        $('.queryvalue').live('keydown', function (e) {
-            if (e.keyCode == 13) {
+        $(document).on('change', '.selectionWidget', function (e) {
+            if ($.querywidget.shouldUpdate(this, e)) {
+                $.querywidget.updateSearch();
+            }
+        });
+
+        $(document).on('keydown', '.queryvalue', function (e) {
+            if (e.keyCode === 13) {
                 return false;
             }
         });
 
-        $('.addIndex').live('change', function () {
+        $(document).on('change', '.addIndex', function () {
             var index = $(this).find(':selected')[0].value;
             var criteria = $(this).parents('.criteria');
             var newcriteria = $(document.createElement('div'))
@@ -386,14 +398,14 @@
             newcriteria.append($.querywidget.createWidget($.querywidget.config.indexes[index].operators[operatorvalue].widget, index));
 
             $.get(portal_url + '/@@archetypes-querywidget-removecriterialink',
-              {}, function (data) { newcriteria.append(data);});
+              {}, function (data) { newcriteria.append(data); });
 
             criteria.before(newcriteria);
             $(this).val('');
             $.querywidget.updateSearch();
         });
 
-        $('.removecriteria').live('click', function () {
+        $(document).on('click', '.removecriteria', function () {
             $(this).parents('.criteria').remove();
             $.querywidget.updateSearch();
             return false;

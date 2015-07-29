@@ -29,6 +29,9 @@ jQuery.tools.dateinput.localize("%(language)s", {
 jQuery.tools.dateinput.conf.lang = "%(language)s";
 jQuery.tools.dateinput.conf.format = "mm/dd/yyyy";
         """
+        self.request.response.setHeader(
+            'Content-Type', 'application/javascript; charset=utf-8')
+
         return template % (dict(language=language,
                                 monthnames=','.join(calendar.getMonthNames()),
                                 shortmonths=','.join(calendar.getMonthAbbreviations()),
@@ -68,6 +71,22 @@ class WidgetTraverse(BrowserView):
 
 
 class MultiSelectWidget(WidgetTraverse):
+
+    def getValues(self, index=None):
+        config = self.getConfig()
+        if not index:
+            index = self.request.form.get('index')
+        values = None
+        if index is not None:
+            values = config['indexes'][index]['values']
+        return values
+
+    def getSortedValuesKeys(self, values):
+        # do a lowercase sort of the keys
+        return sorted(values.iterkeys(), key=sortable_value)
+
+
+class SelectWidget(MultiSelectWidget):
 
     def getValues(self, index=None):
         config = self.getConfig()

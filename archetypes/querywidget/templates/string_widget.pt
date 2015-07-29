@@ -12,7 +12,7 @@
           <input class="queryvalue"
                  autocomplete="off"
                  type="text"
-                 tal:attributes="name python:str(fieldName)+'.v:records'; 
+                 tal:attributes="name python:str(fieldName)+'.v:records';
                                  value value"
                  />
           </div>

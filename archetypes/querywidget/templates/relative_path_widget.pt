@@ -9,10 +9,10 @@
          	tal:define="fieldName fieldName|string:query;
          				value value|nothing">
             <input class="querywidget queryvalue relativePathWidget"
-                   autocomplete="off" 
-                   type="text" 
-                   class="queryvalue" 
-                   tal:attributes="name python:str(fieldName)+'.v:records'; 
+                   autocomplete="off"
+                   type="text"
+                   class="queryvalue"
+                   tal:attributes="name python:str(fieldName)+'.v:records';
                    				   value value"
                    />
 
