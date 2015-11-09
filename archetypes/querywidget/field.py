@@ -1,8 +1,9 @@
-from copy import deepcopy
 from AccessControl import ClassSecurityInfo
 from archetypes.querywidget.interfaces import IQueryField
+from copy import deepcopy
 from Products.Archetypes.Field import ObjectField
 from Products.Archetypes.Field import registerField
+from Products.CMFPlone.utils import safe_unicode
 from zope.component import getMultiAdapter
 from zope.interface import implements
 from zope.site.hooks import getSite
@@ -37,7 +38,22 @@ class QueryField(ObjectField):
                             custom_query=kwargs.get('custom_query', {}))
 
     def getRaw(self, instance, **kwargs):
-        return deepcopy(ObjectField.get(self, instance, **kwargs) or [])
+        value = deepcopy(ObjectField.get(self, instance, **kwargs) or [])
+        safe_value = []
+        for query in value:
+            safe_query = {}
+            for k, v in query.items():
+                if type(v) is list:
+                    safe_v = []
+                    for i in v:
+                        safe_v.append(safe_unicode(i))
+                    safe_query[k] = safe_v
+                elif type(v) is str:
+                    safe_query[k] = safe_unicode(v)
+                else:
+                    safe_query[k] = v
+            safe_value.append(safe_query)
+        return safe_value
 
 
 registerField(QueryField, title='QueryField',

@@ -38,7 +38,7 @@ Check for bug `#13144 <https://dev.plone.org/ticket/13144>`_::
     >>> field.set(portal.collection, [{'i': 'start', 'o': 'some.namespace.op.foo'}])
     >>> raw1 = field.get(portal.collection, raw=True)
     >>> raw1
-    [{'i': 'start', 'o': 'some.namespace.op.foo'}]
+    [{'i': u'start', 'o': u'some.namespace.op.foo'}]
 
     >>> length1 = len(raw1)
     >>> raw1.append({'i': 'end', 'o': 'some.namespace.op.bar'})
@@ -48,3 +48,10 @@ Now the amount of entries in raw2 has to be the same as in raw1::
 
     >>> length1 == len(raw2)
     True
+
+Check for bug with unicode strings as a value::
+
+    >>> field = portal.collection.getField('query')
+    >>> field.set(portal.collection, [{'i': 'start', 'o': 'some.namespace.op.foo', 'v': 'áéíóú'}])
+    >>> field.get(portal.collection, raw=True)
+    [{'i': u'start', 'o': u'some.namespace.op.foo', 'v': u'\xe1\xe9\xed\xf3\xfa'}]
