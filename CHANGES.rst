@@ -4,6 +4,9 @@ Changelog
 1.1.3 (unreleased)
 ------------------
 
+- Fix base_url variable when editing a collection.
+  [rodfersou]
+
 - Added 'safe_unicode' call for raw query values.
   [rodfersou]
 
