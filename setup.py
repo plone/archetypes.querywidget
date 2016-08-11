@@ -21,7 +21,7 @@ setup(
         "Programming Language :: Python :: 2.6",
         "Programming Language :: Python :: 2.7",
     ],
-    keywords='',
+    keywords='archetypes query widget collection topic',
     author='Plone Foundation',
     author_email='plone-developers@lists.sourceforge.net',
     url='http://pypi.python.org/pypi/archetypes.querywidget',
