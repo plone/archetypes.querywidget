@@ -4,6 +4,8 @@ Changelog
 1.1.3 (unreleased)
 ------------------
 
+Bug fixes:
+
 - Fix base_url variable when editing a collection.
   [rodfersou]
 
