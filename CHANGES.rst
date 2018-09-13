@@ -14,7 +14,8 @@ New features:
 
 Bug fixes:
 
-- *add item here*
+- REVERTED: Added 'safe_unicode' call for raw query values.
+  [jensens]
 
 
 1.1.3 (2016-08-12)
