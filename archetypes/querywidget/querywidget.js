@@ -157,7 +157,7 @@
 
     $.querywidget.updateSearch = function () {
         var base_url = $("base").attr("href");
-        base_url = base_url.replace(/\/edit$/, '');
+        base_url = base_url.replace(/\/[a-z_]*edit$/, '');
         if (base_url.indexOf("portal_factory") !== -1) {
             base_url = base_url.split("/").slice(0, -2).join("/");
         }
