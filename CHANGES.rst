@@ -14,7 +14,7 @@ New features:
 
 Bug fixes:
 
-- *add item here*
+- Also strip `/base_edit` or `/atct_edit` when fetching query results
 
 
 1.1.3 (2016-08-12)
