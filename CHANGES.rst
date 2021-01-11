@@ -14,6 +14,8 @@ New features:
 
 Bug fixes:
 
+- Catch click events on widgets that were added after loading the DOM
+
 - Also strip `/base_edit` or `/atct_edit` when fetching query results
 
 
