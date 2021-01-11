@@ -280,7 +280,7 @@
             });
         });
 
-        $('.multipleSelectionWidget dt').on('click', function () {
+        $(document).on('click', '.multipleSelectionWidget dt', function () {
             $(this).parent().children('dd').toggle();
         });
 
